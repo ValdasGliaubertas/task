@@ -1,19 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller;
 
-use App\Model\Document;
 use App\Model\DocumentInterface;
-use App\Model\EnvConfig;
-use App\Model\EnvConfigInterface;
-use App\Model\Loan;
 use App\Model\LoanInterface;
-use App\Model\PGSQLUserRepository;
-use App\Model\User;
 use App\Model\UserInterface;
-use App\Model\UserRepositoryInterface;
 use App\Service\EncryptedFileStorageServiceInterface;
 use App\Service\FormValidatorInterface;
+use App\Service\UserRepositoryInterface;
 use Throwable;
 
 class UserController

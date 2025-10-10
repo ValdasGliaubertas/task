@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Model;
+namespace App\Service;
 
+use App\Model\UserInterface;
 use PDO;
 use PDOException;
 use Throwable;

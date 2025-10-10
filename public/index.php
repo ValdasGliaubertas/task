@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 use App\Controller\UserController;
 use App\Model\Document;
-use App\Model\EnvConfig;
 use App\Model\Loan;
-use App\Model\PGSQLUserRepository;
 use App\Model\User;
 use App\Service\DataEncryptor;
 use App\Service\EncryptedFileStorageService;
+use App\Service\EnvConfig;
 use App\Service\FormValidator;
+use App\Service\PGSQLUserRepository;
 
 require_once "../vendor/autoload.php";
 
@@ -18,6 +18,7 @@ header('application/json; charset=utf-8');
 header('Cache-Control: no-cache, no-store, must-revalidate');
 header('Pragma: no-cache');
 header('Expires: 0');
+
 $env = new EnvConfig();
 $repository = new PGSQLUserRepository($env);
 $user = new User();

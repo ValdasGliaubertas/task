@@ -2,15 +2,13 @@
 
 declare(strict_types=1);
 
-namespace App\Model;
+namespace App\Service;
 
 /**
  * Secure configuration loader for PHP applications.
  *
  * Features:
  *  - Loads environment variables from .env file
- *  - Optionally decrypts .env.enc using Sodium
- *  - Provides simple get('KEY', 'default') accessor
  *  - Caches results in memory
  */
 class EnvConfig implements EnvConfigInterface

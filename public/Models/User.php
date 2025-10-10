@@ -8,19 +8,18 @@ class User implements UserInterface
 {
 
     private ?int $id;
-    private string $full_name;
-    private string $email;
-    private string $phone_number;
+    private ?string $full_name;
+    private ?string $email;
+    private ?string $phone_number;
 
-    private ?LoanInterface $loan;
+    /** @var LoanInterface[] */
+    private array $loans = [];
 
-    private ?DocumentInterface $document;
+    /** @var DocumentInterface[] */
+    private array $documents = [];
 
-    private RepositoryInterface $repository;
-
-    public function __construct(string $full_name, string $email, string $phone_number, RepositoryInterface $repository)
+    public function __construct()
     {
-        $this->repository = $repository;
     }
 
     public function getId(): int
@@ -63,24 +62,24 @@ class User implements UserInterface
         $this->phone_number = $phone_number;
     }
 
-    public function getLoan(): ?LoanInterface
+    public function getLoans(): ?array
     {
-        return $this->loan;
+        return $this->loans;
     }
 
-    public function getDocument(): ?DocumentInterface
+    public function addLoan(LoanInterface $loan): void
     {
-        return $this->document;
+        $this->loans[] = $loan;
     }
 
-    public function setLoan(LoanInterface $loan): void
+    public function getDocuments(): ?array
     {
-        $this->loan = $loan;
+        return $this->documents;
     }
 
-    public function setDocument(DocumentInterface $document): void
+    public function addDocument(DocumentInterface $document): void
     {
-        $this->document = $document;
+        $this->documents[] = $document;
     }
 
 }

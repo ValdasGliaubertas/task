@@ -9,7 +9,7 @@ use PDO;
 use PDOException;
 use Throwable;
 
-class UserRepository implements UserRepositoryInterface
+class PGSQLUserRepository implements UserRepositoryInterface
 {
     private PDO $pdo;
 
@@ -20,7 +20,6 @@ class UserRepository implements UserRepositoryInterface
      */
     public function __construct(EnvConfigInterface $envConfig)
     {
-
         try {
             $dbHost = $envConfig->get('DB_HOST');
             $dbName = $envConfig->get('DB_NAME');
@@ -47,7 +46,6 @@ class UserRepository implements UserRepositoryInterface
             ]);
 
             $this->pdo = $pdo;
-
         } catch (PDOException $e) {
             throw new \Exception("Database connection failed: " . $e->getMessage());
         }
@@ -59,28 +57,34 @@ class UserRepository implements UserRepositoryInterface
 
         try {
             // Insert user
-            $stmt = $this->pdo->prepare("
+            $query = $this->pdo->prepare(
+              "
                 INSERT INTO users (full_name, email, phone_number) VALUES (:full_name, :email, :phone_number)
                 RETURNING id
-            ");
-            $stmt->execute([
+            "
+            );
+            $query->execute([
               ':name' => $user->getFullName(),
               ':email' => $user->getEmail(),
               ':phone_number' => $user->getPhoneNumber(),
             ]);
-            $user_id = (int) $this->pdo->lastInsertId();
+            $user_id = (int)$this->pdo->lastInsertId();
             $user->setId($user_id);
 
-            if ($user->getLoan() !== null) {
-                $loan = $user->getLoan();
-                $stmt = $this->pdo->prepare("
-                    INSERT INTO loans (user_id, amount)
-                    VALUES (:user_id, :amount)
-                ");
-                $stmt->execute([
-                  ':user_id' => $user->getId(),
-                  ':amount' => $loan->getAmount(),
-                ]);
+            if ($user->getLoans() !== null) {
+                $loans = $user->getLoans();
+                foreach ($loans as $loan) {
+                    $query = $this->pdo->prepare(
+                      "
+                        INSERT INTO loans (user_id, amount)
+                        VALUES (:user_id, :amount)
+                    "
+                    );
+                    $query->execute([
+                      ':user_id' => $user->getId(),
+                      ':amount' => $loan->getAmount(),
+                    ]);
+                }
             }
 
             $this->pdo->commit();

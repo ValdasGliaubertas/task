@@ -22,12 +22,12 @@ interface UserInterface
 
     public function setEmail(string $email): void;
 
-    public function getLoan(): ?LoanInterface;
+    public function getLoans(): ?array;
 
-    public function getDocument(): ?DocumentInterface;
+    public function getDocuments(): ?array;
 
-    public function setLoan(LoanInterface $loan): void;
+    public function addLoan(LoanInterface $loan): void;
 
-    public function setDocument(DocumentInterface $document): void;
+    public function addDocument(DocumentInterface $document): void;
 
 }

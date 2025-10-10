@@ -13,3 +13,11 @@ CREATE TABLE loans (
 );
 
 CREATE INDEX idx_loans_user_id ON loans (user_id);
+
+CREATE TABLE documents (
+   id SERIAL PRIMARY KEY,
+   name VARCHAR(50) NOT NULL,
+   user_id INT NOT NULL REFERENCES users(id)
+);
+
+CREATE INDEX idx_documents_user_id ON documents (user_id);

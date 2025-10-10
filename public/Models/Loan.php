@@ -6,7 +6,7 @@ namespace Model;
 
 class Loan implements LoanInterface
 {
-    private float $amount;
+    private ?float $amount;
 
     public function setAmount(float $amount): void {
         $this->amount = $amount;

@@ -2,9 +2,8 @@
 
 declare(strict_types=1);
 
-namespace Model;
+namespace App\Model;
 
-use Model\EnvConfig;
 use PDO;
 use PDOException;
 use Throwable;
@@ -56,18 +55,25 @@ class PGSQLUserRepository implements UserRepositoryInterface
         $this->pdo->beginTransaction();
 
         try {
+            // Check if email already exists
+            $query = $this->pdo->prepare(
+              "SELECT id FROM users WHERE email = :email or phone_number = :phone_number"
+            );
+            $query->bindValue(':email', $user->getEmail(), PDO::PARAM_STR);
+            $query->bindValue(':phone_number', $user->getPhoneNumber(), PDO::PARAM_STR);
+            $query->execute();
+            if ($query->fetch()) {
+                throw new \Exception("Email already exists.");
+            }
+
             // Insert user
             $query = $this->pdo->prepare(
-              "
-                INSERT INTO users (full_name, email, phone_number) VALUES (:full_name, :email, :phone_number)
-                RETURNING id
-            "
+              "INSERT INTO users (full_name, email, phone_number) VALUES (:full_name, :email, :phone_number) RETURNING id"
             );
-            $query->execute([
-              ':name' => $user->getFullName(),
-              ':email' => $user->getEmail(),
-              ':phone_number' => $user->getPhoneNumber(),
-            ]);
+            $query->bindValue(':full_name', $user->getFullName(), PDO::PARAM_STR);
+            $query->bindValue(':email', $user->getEmail(), PDO::PARAM_STR);
+            $query->bindValue(':phone_number', $user->getPhoneNumber(), PDO::PARAM_STR);
+            $query->execute();
             $user_id = (int)$this->pdo->lastInsertId();
             $user->setId($user_id);
 
@@ -75,15 +81,23 @@ class PGSQLUserRepository implements UserRepositoryInterface
                 $loans = $user->getLoans();
                 foreach ($loans as $loan) {
                     $query = $this->pdo->prepare(
-                      "
-                        INSERT INTO loans (user_id, amount)
-                        VALUES (:user_id, :amount)
-                    "
+                      "INSERT INTO loans (user_id, amount) VALUES (:user_id, :amount)"
                     );
-                    $query->execute([
-                      ':user_id' => $user->getId(),
-                      ':amount' => $loan->getAmount(),
-                    ]);
+                    $query->bindValue(':user_id', $user->getId(), PDO::PARAM_INT);
+                    $query->bindValue(':amount', $loan->getAmount(), PDO::PARAM_STR);
+                    $query->execute();
+                }
+            }
+
+            if ($user->getDocuments() !== null) {
+                $documents = $user->getDocuments();
+                foreach ($documents as $document) {
+                    $query = $this->pdo->prepare(
+                      "INSERT INTO documents (name, user_id) VALUES (:name, :user_id)"
+                    );
+                    $query->bindValue(':name', $document->getName(), PDO::PARAM_STR);
+                    $query->bindValue(':user_id', $user->getId(), PDO::PARAM_INT);
+                    $query->execute();
                 }
             }
 

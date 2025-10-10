@@ -2,21 +2,28 @@
 
 declare(strict_types=1);
 
-namespace Model;
+namespace App\Service;
 
 use Random\RandomException;
 use SodiumException;
 
-class DataEncryptor
+class DataEncryptor implements DataEncryptorInterface
 {
 
     private string $key;
 
-    public function __construct(string $key) {
+    public function __construct(string $key_path = '/var/www/secure_storage/encryption.key')
+    {
         // if empty generate key
+        if (!file_exists($key_path)) {
+            throw new \RuntimeException("Encryption key file not found.");
+        }
 
-        if (strlen($key) !== SODIUM_CRYPTO_SECRETBOX_KEYBYTES) {
-            throw new \InvalidArgumentException('Key must be 32 bytes long.');
+        $encoded = trim(file_get_contents($key_path));
+        $key = base64_decode($encoded, true);
+
+        if ($key === false || strlen($key) !== SODIUM_CRYPTO_SECRETBOX_KEYBYTES) {
+            throw new \RuntimeException("Invalid encryption key format");
         }
         $this->key = $key;
     }
@@ -26,15 +33,10 @@ class DataEncryptor
      */
     public function encrypt(string $data): string
     {
-        $message = "Sensitive data to protect";
-
-        // Generate a random 32-byte secret key (store this securely!)
-        $key = sodium_crypto_secretbox_keygen();
-
         $nonce = random_bytes(SODIUM_CRYPTO_SECRETBOX_NONCEBYTES);
 
         // Encrypt (authenticated)
-        $ciphertext = sodium_crypto_secretbox($message, $nonce, $key);
+        $ciphertext = sodium_crypto_secretbox($data, $nonce, $this->key);
 
         // Combine nonce + ciphertext for storage
         return base64_encode($nonce . $ciphertext);
@@ -49,11 +51,13 @@ class DataEncryptor
         $nonce = substr($decoded, 0, SODIUM_CRYPTO_SECRETBOX_NONCEBYTES);
         $ciphertext = substr($decoded, SODIUM_CRYPTO_SECRETBOX_NONCEBYTES);
 
-        $decrypted = sodium_crypto_secretbox_open($ciphertext, $nonce, $key);
+        $decrypted = sodium_crypto_secretbox_open($ciphertext, $nonce, $this->key);
 
         if ($decrypted === false) {
-            die("Decryption failed: data may be corrupted or wrong key used.");
+            throw new \RuntimeException("Unable to decrypt data");
         }
+
+        return $decrypted;
     }
 
 }

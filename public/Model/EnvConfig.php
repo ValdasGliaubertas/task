@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Model;
+namespace App\Model;
 
 /**
  * Secure configuration loader for PHP applications.
@@ -16,7 +16,16 @@ namespace Model;
 class EnvConfig implements EnvConfigInterface
 {
     private static ?array $cache = null;
-    private static string $envPath = __DIR__ . '/../.env';
+    private static string $envPath = __DIR__ . '/../../.env';
+
+    /**
+     * Get a configuration value
+     */
+    public function get(string $key, mixed $default = null): mixed
+    {
+        self::load();
+        return self::$cache[$key] ?? $default;
+    }
 
     /**
      * Load and parse .env file
@@ -37,15 +46,6 @@ class EnvConfig implements EnvConfigInterface
         }
 
         self::$cache = $this->parseEnvContent($envContent);
-    }
-
-    /**
-     * Get a configuration value
-     */
-    public function get(string $key, mixed $default = null): mixed
-    {
-        self::load();
-        return self::$cache[$key] ?? $default;
     }
 
     /**

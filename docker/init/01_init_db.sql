@@ -8,7 +8,7 @@ CREATE TABLE users (
 
 CREATE TABLE loans (
    id SERIAL PRIMARY KEY,
-   amount VARCHAR(50) NOT NULL,
+   amount NUMERIC(15,2) NOT NULL CHECK (amount >= 0),
    user_id INT NOT NULL REFERENCES users(id)
 );
 
@@ -16,7 +16,7 @@ CREATE INDEX idx_loans_user_id ON loans (user_id);
 
 CREATE TABLE documents (
    id SERIAL PRIMARY KEY,
-   name VARCHAR(50) NOT NULL,
+   name VARCHAR(150) NOT NULL,
    user_id INT NOT NULL REFERENCES users(id)
 );
 

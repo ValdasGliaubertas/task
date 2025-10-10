@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Model;
+namespace App\Model;
 
 class User implements UserInterface
 {
@@ -27,24 +27,14 @@ class User implements UserInterface
         return $this->id;
     }
 
-    public function getFullName(): string
-    {
-        return $this->full_name;
-    }
-
-    public function getEmail(): string
-    {
-        return $this->email;
-    }
-
-    public function getPhoneNumber(): string
-    {
-        return $this->phone_number;
-    }
-
     public function setId(int $id): void
     {
         $this->id = $id;
+    }
+
+    public function getFullName(): string
+    {
+        return $this->full_name;
     }
 
     public function setFullName(string $full_name): void
@@ -52,9 +42,19 @@ class User implements UserInterface
         $this->full_name = $full_name;
     }
 
+    public function getEmail(): string
+    {
+        return $this->email;
+    }
+
     public function setEmail(string $email): void
     {
         $this->email = $email;
+    }
+
+    public function getPhoneNumber(): string
+    {
+        return $this->phone_number;
     }
 
     public function setPhoneNumber(string $phone_number): void

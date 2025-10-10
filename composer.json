@@ -1,10 +1,10 @@
 {
-    "name": "app/task",
-    "type": "project",
-    "autoload": {
-        "psr-4": {
-            "App\\": "public/"
-        }
-    },
-    "require": {}
+  "name": "app/task",
+  "type": "project",
+  "autoload": {
+    "psr-4": {
+      "App\\": "public/"
+    }
+  },
+  "require": {}
 }

@@ -1,0 +1,17 @@
+# Enable URL rewriting
+RewriteEngine On
+
+# Route all requests to index.php if file/folder doesn't exist
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ index.php [L]
+
+# Deny access to sensitive files
+<FilesMatch "(^\.env|Dockerfile|docker-compose\.yml|config\.php|composer\.json|composer\.lock)">
+  Require all denied
+</FilesMatch>
+
+# Allow access to PHP files in directories that need it:
+RewriteCond %{REQUEST_URI} !/Models/[^/]*\.php$
+RewriteCond %{REQUEST_URI} !/Controllers/[^/]*\.php$
+RewriteCond %{REQUEST_URI} !/Views/[^/]*\.php$

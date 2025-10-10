@@ -1,0 +1,26 @@
+### Post user's data
+POST http://localhost:7070/index.php HTTP/1.1
+Content-Type: multipart/form-data; boundary=WebForm
+
+--WebForm
+Content-Disposition: form-data; name="name"
+
+John Doe
+--WebForm
+Content-Disposition: form-data; name="email"
+
+john@example.com
+--WebForm
+Content-Disposition: form-data; name="phone"
+
++37062426954
+--WebForm
+Content-Disposition: form-data; name="loan_amount"
+
+5000
+--WebForm
+Content-Disposition: form-data; name="file"; filename="passport.jpg"
+Content-Type: image/jpeg
+
+< ./assets/passport.jpg
+--WebForm--

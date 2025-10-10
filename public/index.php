@@ -3,6 +3,9 @@
 declare(strict_types=1);
 
 use App\Controller\UserController;
+use App\Model\Document;
+use App\Model\Loan;
+use App\Model\User;
 use App\Service\DataEncryptor;
 use App\Service\EncryptedFileStorageService;
 use App\Service\FormValidator;
@@ -14,10 +17,13 @@ header('Cache-Control: no-cache, no-store, must-revalidate');
 header('Pragma: no-cache');
 header('Expires: 0');
 
+$user = new User();
+$document = new Document();
+$loan = new Loan();
 $form_validator = new FormValidator();
 $data_encryptor = new DataEncryptor();
 $encryptor_service = new EncryptedFileStorageService($data_encryptor);
-$controller = new UserController($form_validator, $encryptor_service);
+$controller = new UserController($form_validator, $encryptor_service, $loan, $user, $document);
 $controller->handleSubmit();
 
 

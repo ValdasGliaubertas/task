@@ -3,10 +3,13 @@
 namespace App\Controller;
 
 use App\Model\Document;
+use App\Model\DocumentInterface;
 use App\Model\EnvConfig;
 use App\Model\Loan;
+use App\Model\LoanInterface;
 use App\Model\PGSQLUserRepository;
 use App\Model\User;
+use App\Model\UserInterface;
 use App\Service\EncryptedFileStorageServiceInterface;
 use App\Service\FormValidatorInterface;
 use Throwable;
@@ -18,12 +21,24 @@ class UserController
 
     private EncryptedFileStorageServiceInterface $encryptedFileStorageService;
 
+    private LoanInterface $loan;
+
+    private UserInterface $user;
+
+    private DocumentInterface $document;
+
     public function __construct(
       FormValidatorInterface $validator,
-      EncryptedFileStorageServiceInterface $encryptedFileStorageService
+      EncryptedFileStorageServiceInterface $encryptedFileStorageService,
+      LoanInterface $loan,
+      UserInterface $user,
+      DocumentInterface $document
     ) {
         $this->validator = $validator;
         $this->encryptedFileStorageService = $encryptedFileStorageService;
+        $this->loan = $loan;
+        $this->user = $user;
+        $this->document = $document;
     }
 
     public function handleSubmit(): void
@@ -46,23 +61,20 @@ class UserController
         $file_path = $this->encryptedFileStorageService->store($_FILES['file']);
 
         // Build domain objects
-        $loan = new Loan();
-        $loan->setAmount((float)$data['loan_amount']);
+        $this->loan->setAmount((float)$data['loan_amount']);
 
-        $document = new Document();
-        $document->setName($file_path);
+        $this->document->setName($file_path);
 
-        $user = new User();
-        $user->setFullName($data['full_name']);
-        $user->setEmail($data['email']);
-        $user->setPhoneNumber($data['phone']);
-        $user->addLoan($loan);
-        $user->addDocument($document);
+        $this->user->setFullName($data['full_name']);
+        $this->user->setEmail($data['email']);
+        $this->user->setPhoneNumber($data['phone']);
+        $this->user->addLoan($this->loan);
+        $this->user->addDocument($this->document);
 
         try {
             $env = new EnvConfig();
             $repo = new PGSQLUserRepository($env);
-            $user_id = $repo->save($user);
+            $user_id = $repo->save($this->user);
         } catch (Throwable $e) {
             http_response_code(500);
             echo json_encode([

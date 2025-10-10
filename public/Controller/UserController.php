@@ -5,11 +5,13 @@ namespace App\Controller;
 use App\Model\Document;
 use App\Model\DocumentInterface;
 use App\Model\EnvConfig;
+use App\Model\EnvConfigInterface;
 use App\Model\Loan;
 use App\Model\LoanInterface;
 use App\Model\PGSQLUserRepository;
 use App\Model\User;
 use App\Model\UserInterface;
+use App\Model\UserRepositoryInterface;
 use App\Service\EncryptedFileStorageServiceInterface;
 use App\Service\FormValidatorInterface;
 use Throwable;
@@ -27,18 +29,22 @@ class UserController
 
     private DocumentInterface $document;
 
+    private UserRepositoryInterface $repository;
+
     public function __construct(
       FormValidatorInterface $validator,
       EncryptedFileStorageServiceInterface $encryptedFileStorageService,
       LoanInterface $loan,
       UserInterface $user,
-      DocumentInterface $document
+      DocumentInterface $document,
+      UserRepositoryInterface $repository
     ) {
         $this->validator = $validator;
         $this->encryptedFileStorageService = $encryptedFileStorageService;
         $this->loan = $loan;
         $this->user = $user;
         $this->document = $document;
+        $this->repository = $repository;
     }
 
     public function handleSubmit(): void
@@ -72,9 +78,7 @@ class UserController
         $this->user->addDocument($this->document);
 
         try {
-            $env = new EnvConfig();
-            $repo = new PGSQLUserRepository($env);
-            $user_id = $repo->save($this->user);
+            $user_id = $this->repository->save($this->user);
         } catch (Throwable $e) {
             http_response_code(500);
             echo json_encode([

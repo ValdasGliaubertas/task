@@ -7,7 +7,7 @@ namespace App\Service;
 use Random\RandomException;
 use SodiumException;
 
-class DataEncryptorService implements DataEncryptorServiceInterface
+class DataEncryptorService implements EncryptorServiceInterface
 {
 
     private string $key;

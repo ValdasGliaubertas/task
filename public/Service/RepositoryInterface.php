@@ -6,7 +6,7 @@ namespace App\Service;
 
 use App\Model\UserInterface;
 
-interface UserRepositoryInterface
+interface RepositoryInterface
 {
 
     public function save(UserInterface $user): int;

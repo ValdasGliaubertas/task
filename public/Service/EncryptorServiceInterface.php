@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Service;
 
-interface DataEncryptorServiceInterface
+interface EncryptorServiceInterface
 {
     public function encrypt(string $data): string;
 

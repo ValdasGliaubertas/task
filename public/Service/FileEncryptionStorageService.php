@@ -6,12 +6,12 @@ namespace App\Service;
 
 use Exception;
 
-class EncryptedFileStorageService implements EncryptedFileStorageServiceInterface
+class FileEncryptionStorageService implements FileStorageServiceInterface
 {
     private string $upload_dir;
-    private DataEncryptorServiceInterface $encryptor;
+    private EncryptorServiceInterface $encryptor;
 
-    public function __construct(DataEncryptorServiceInterface $encryptor, string $upload_dir = __DIR__ . '/../../uploads')
+    public function __construct(EncryptorServiceInterface $encryptor, string $upload_dir = __DIR__ . '/../../uploads')
     {
         $this->encryptor = $encryptor;
         $this->upload_dir = $upload_dir;

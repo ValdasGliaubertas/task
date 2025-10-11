@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Service;
 
-class FormValidatorService implements FormValidatorServiceInterface
+class FormValidatorService implements ValidatorServiceInterface
 {
     public function validate(array $input, array $files): array
     {

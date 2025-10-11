@@ -11,7 +11,7 @@ namespace App\Service;
  *  - Loads environment variables from .env file
  *  - Caches results in memory
  */
-class EnvConfigService implements EnvConfigServiceInterface
+class EnvConfigService implements ConfigServiceInterface
 {
     private static ?array $cache = null;
     private static string $envPath = __DIR__ . '/../../.env';

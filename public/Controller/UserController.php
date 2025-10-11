@@ -4,20 +4,23 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\HTTP\HTTPResponse;
+use App\HTTP\JsonResponse;
+use App\HTTP\Response;
 use App\Model\DocumentInterface;
 use App\Model\LoanInterface;
 use App\Model\UserInterface;
-use App\Service\EncryptedFileStorageServiceInterface;
-use App\Service\FormValidatorServiceInterface;
-use App\Service\UserRepositoryInterface;
+use App\Service\FileStorageServiceInterface;
+use App\Service\RepositoryInterface;
+use App\Service\ValidatorServiceInterface;
 use Throwable;
 
 class UserController
 {
 
-    private FormValidatorServiceInterface $validator;
+    private ValidatorServiceInterface $validator;
 
-    private EncryptedFileStorageServiceInterface $encryptedFileStorageService;
+    private FileStorageServiceInterface $fileEncryptionStorageService;
 
     private LoanInterface $loan;
 
@@ -25,40 +28,44 @@ class UserController
 
     private DocumentInterface $document;
 
-    private UserRepositoryInterface $repository;
+    private RepositoryInterface $repository;
 
     public function __construct(
-      FormValidatorServiceInterface $validator,
-      EncryptedFileStorageServiceInterface $encryptedFileStorageService,
+      ValidatorServiceInterface $validator,
+      FileStorageServiceInterface $fileEncryptionStorageService,
       LoanInterface $loan,
       UserInterface $user,
       DocumentInterface $document,
-      UserRepositoryInterface $repository
+      RepositoryInterface $repository
     ) {
         $this->validator = $validator;
-        $this->encryptedFileStorageService = $encryptedFileStorageService;
+        $this->fileEncryptionStorageService = $fileEncryptionStorageService;
         $this->loan = $loan;
         $this->user = $user;
         $this->document = $document;
         $this->repository = $repository;
     }
 
-    public function handleSubmit(): array
+    public function handleSubmit(): Response
     {
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-            // Responses should be handled by a front controller through Response object
-            return ['status' => 'error', 'message' => 'Invalid request method'];
+            return new HTTPResponse([
+              '<h1>Welcome!</h1>',
+              '<p>Please submit the form to register a new user with a loan and a document</p>',
+              '<p>use POST method, a header: Content-Type: multipart/form-data;</p>',
+              '<p>Fields: full_name, email, phone, loan_amount, file (image/jpeg, under 2MB)</p>'
+            ], 200);
         }
 
         // Validation and sanitization service
         [$data, $errors] = $this->validator->validate($_POST, $_FILES);
 
         if (!empty($errors)) {
-            return ['status' => 'error', 'errors' => $errors];
+            return new JsonResponse(['status' => 'error', 'errors' => $errors], 200);
         }
 
         // Encryption and file saving
-        $file_path = $this->encryptedFileStorageService->store($_FILES['file']);
+        $file_path = $this->fileEncryptionStorageService->store($_FILES['file']);
 
         // Build domain objects
         $this->loan->setAmount((float)$data['loan_amount']);
@@ -74,15 +81,15 @@ class UserController
         try {
             $user_id = $this->repository->save($this->user);
         } catch (Throwable $e) {
-            return [
+            return new JsonResponse([
               'status' => 'error',
-              'message' => 'Failed to save user data: ' . $e->getMessage(),
-            ];
+              'message' => 'Failed to save user data: ' . $e->getMessage()
+            ], 500);
         }
 
-        return [
+        return new JsonResponse([
           'status' => 'success',
           'data' => ['user_id' => $user_id]
-        ];
+        ], 200);
     }
 }

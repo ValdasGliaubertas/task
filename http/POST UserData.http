@@ -22,5 +22,5 @@ Content-Disposition: form-data; name="loan_amount"
 Content-Disposition: form-data; name="file"; filename="passport.jpg"
 Content-Type: image/jpeg
 
-< ./assets/pashport.jpg
+< ./assets/poshport.jpg
 --WebForm--

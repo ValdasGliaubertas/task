@@ -9,23 +9,30 @@ use PDO;
 use PDOException;
 use Throwable;
 
-class PGSQLUserRepository implements UserRepositoryInterface
+class PGSQLUserRepository implements RepositoryInterface
 {
     private PDO $pdo;
 
-    private EnvConfigServiceInterface $envConfig;
+    private ConfigServiceInterface $envConfig;
+
+    public function __construct(ConfigServiceInterface $envConfig)
+    {
+        $this->envConfig = $envConfig;
+    }
 
     /**
-     * @throws \Exception
+     * Initialize the PDO connection.
+     *
+     * @throws \Exception if the connection fails or configuration is missing.
      */
-    public function __construct(EnvConfigServiceInterface $envConfig)
+    private function initPDOconnection(): void
     {
         try {
-            $dbHost = $envConfig->get('DB_HOST');
-            $dbName = $envConfig->get('DB_NAME');
-            $dbUser = $envConfig->get('DB_USER');
-            $dbPass = $envConfig->get('DB_PASS');
-            $dbPort = $envConfig->get('DB_PORT');
+            $dbHost = $this->envConfig->get('DB_HOST');
+            $dbName = $this->envConfig->get('DB_NAME');
+            $dbUser = $this->envConfig->get('DB_USER');
+            $dbPass = $this->envConfig->get('DB_PASS');
+            $dbPort = $this->envConfig->get('DB_PORT');
 
             if (empty($dbPort)
               || !is_numeric($dbPort)
@@ -51,11 +58,21 @@ class PGSQLUserRepository implements UserRepositoryInterface
         }
     }
 
+
+    /**
+     * Save a user's data to the database.
+     *
+     * @param UserInterface $user The user to save.
+     * @return int The ID of the saved user.
+     * @throws \Exception|Throwable if the email already exists or if a database error occurs.
+     */
     public function save(UserInterface $user): int
     {
-        $this->pdo->beginTransaction();
-
         try {
+            $this->initPDOconnection();
+
+            $this->pdo->beginTransaction();
+
             // Check if email already exists
             $query = $this->pdo->prepare(
               "SELECT id FROM users WHERE email = :email or phone_number = :phone_number"
@@ -104,7 +121,9 @@ class PGSQLUserRepository implements UserRepositoryInterface
 
             $this->pdo->commit();
         } catch (Throwable $e) {
-            $this->pdo->rollBack();
+            if ($this->pdo->inTransaction()) {
+                $this->pdo->rollBack();
+            }
             throw $e;
         }
 

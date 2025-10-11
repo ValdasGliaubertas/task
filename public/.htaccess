@@ -7,11 +7,6 @@ RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^ index.php [L]
 
 # Deny access to sensitive files
-<FilesMatch "(^\.env|Dockerfile|docker-compose\.yml|config\.php|composer\.json|composer\.lock)">
+<FilesMatch "(^\.env|Dockerfile|docker-compose\.yml|composer\.json|composer\.lock)">
   Require all denied
 </FilesMatch>
-
-# Allow access to PHP files in directories that need it:
-RewriteCond %{REQUEST_URI} !/Models/[^/]*\.php$
-RewriteCond %{REQUEST_URI} !/Controllers/[^/]*\.php$
-RewriteCond %{REQUEST_URI} !/Views/[^/]*\.php$

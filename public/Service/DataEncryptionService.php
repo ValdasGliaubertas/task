@@ -5,9 +5,10 @@ declare(strict_types=1);
 namespace App\Service;
 
 use Random\RandomException;
+use RuntimeException;
 use SodiumException;
 
-class DataEncryptorService implements EncryptorServiceInterface
+class DataEncryptionService implements EncryptorServiceInterface
 {
 
     private string $key;
@@ -16,14 +17,14 @@ class DataEncryptorService implements EncryptorServiceInterface
     {
         // if empty generate key
         if (!file_exists($key_path)) {
-            throw new \RuntimeException("Encryption key file not found.");
+            throw new RuntimeException("Encryption key file not found.");
         }
 
         $encoded = trim(file_get_contents($key_path));
         $key = base64_decode($encoded, true);
 
         if ($key === false || strlen($key) !== SODIUM_CRYPTO_SECRETBOX_KEYBYTES) {
-            throw new \RuntimeException("Invalid encryption key format");
+            throw new RuntimeException("Invalid encryption key format");
         }
         $this->key = $key;
     }
@@ -54,7 +55,7 @@ class DataEncryptorService implements EncryptorServiceInterface
         $decrypted = sodium_crypto_secretbox_open($ciphertext, $nonce, $this->key);
 
         if ($decrypted === false) {
-            throw new \RuntimeException("Unable to decrypt data");
+            throw new RuntimeException("Unable to decrypt data");
         }
 
         return $decrypted;

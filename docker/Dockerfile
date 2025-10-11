@@ -22,7 +22,8 @@ RUN chown -R www-data:www-data /var/www/html \
 && chown root:www-data /var/www/secure_storage \
 && chmod 750 /var/www/secure_storage \
 && chown www-data:www-data /var/www/secure_storage/encryption.key   \
-&& chmod 600 /var/www/secure_storage/encryption.key
+&& chmod 600 /var/www/secure_storage/encryption.key \
+&& chmod 600 /var/www/html/.env
 
 # Set working directory
 WORKDIR /var/www/html

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Service;
 
+use RuntimeException;
+
 /**
  * Secure configuration loader for PHP applications.
  *
@@ -40,7 +42,7 @@ class EnvConfigService implements ConfigServiceInterface
         if (file_exists(self::$envPath)) {
             $envContent = file_get_contents(self::$envPath);
         } else {
-            throw new \RuntimeException('No .env file found');
+            throw new RuntimeException('No .env file found');
         }
 
         self::$cache = $this->parseEnvContent($envContent);

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Service;
 
 use App\Model\UserInterface;
+use Exception;
 use PDO;
 use PDOException;
 use Throwable;
@@ -21,50 +22,11 @@ class PGSQLUserRepository implements RepositoryInterface
     }
 
     /**
-     * Initialize the PDO connection.
-     *
-     * @throws \Exception if the connection fails or configuration is missing.
-     */
-    private function initPDOconnection(): void
-    {
-        try {
-            $dbHost = $this->envConfig->get('DB_HOST');
-            $dbName = $this->envConfig->get('DB_NAME');
-            $dbUser = $this->envConfig->get('DB_USER');
-            $dbPass = $this->envConfig->get('DB_PASS');
-            $dbPort = $this->envConfig->get('DB_PORT');
-
-            if (empty($dbPort)
-              || !is_numeric($dbPort)
-              || empty($dbName)
-              || empty($dbUser)
-              || empty($dbPass)) {
-                throw new \Exception("Database configuration is not set properly.");
-            }
-
-            // Build DSN (Data Source Name)
-            $dsn = "pgsql:host=$dbHost;port=$dbPort;dbname=$dbName";
-
-            // Create PDO instance
-            $pdo = new PDO($dsn, $dbUser, $dbPass, [
-              PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,     // Throw exceptions
-              PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC, // Return rows as associative arrays
-              PDO::ATTR_EMULATE_PREPARES => false,             // Use native prepared statements
-            ]);
-
-            $this->pdo = $pdo;
-        } catch (PDOException $e) {
-            throw new \Exception("Database connection failed: " . $e->getMessage());
-        }
-    }
-
-
-    /**
      * Save a user's data to the database.
      *
      * @param UserInterface $user The user to save.
      * @return int The ID of the saved user.
-     * @throws \Exception|Throwable if the email already exists or if a database error occurs.
+     * @throws Exception|Throwable if the email already exists or if a database error occurs.
      */
     public function save(UserInterface $user): int
     {
@@ -75,22 +37,22 @@ class PGSQLUserRepository implements RepositoryInterface
 
             // Check if email already exists
             $query = $this->pdo->prepare(
-              "SELECT id FROM users WHERE email = :email or phone_number = :phone_number"
+                "SELECT id FROM users WHERE email = :email or phone_number = :phone_number"
             );
-            $query->bindValue(':email', $user->getEmail(), PDO::PARAM_STR);
-            $query->bindValue(':phone_number', $user->getPhoneNumber(), PDO::PARAM_STR);
+            $query->bindValue(':email', $user->getEmail());
+            $query->bindValue(':phone_number', $user->getPhoneNumber());
             $query->execute();
             if ($query->fetch()) {
-                throw new \Exception("Email already exists.");
+                throw new Exception("Email already exists.");
             }
 
             // Insert user
             $query = $this->pdo->prepare(
-              "INSERT INTO users (full_name, email, phone_number) VALUES (:full_name, :email, :phone_number) RETURNING id"
+                "INSERT INTO users (full_name, email, phone_number) VALUES (:full_name, :email, :phone_number) RETURNING id"
             );
-            $query->bindValue(':full_name', $user->getFullName(), PDO::PARAM_STR);
-            $query->bindValue(':email', $user->getEmail(), PDO::PARAM_STR);
-            $query->bindValue(':phone_number', $user->getPhoneNumber(), PDO::PARAM_STR);
+            $query->bindValue(':full_name', $user->getFullName());
+            $query->bindValue(':email', $user->getEmail());
+            $query->bindValue(':phone_number', $user->getPhoneNumber());
             $query->execute();
             $user_id = (int)$this->pdo->lastInsertId();
             $user->setId($user_id);
@@ -99,10 +61,10 @@ class PGSQLUserRepository implements RepositoryInterface
                 $loans = $user->getLoans();
                 foreach ($loans as $loan) {
                     $query = $this->pdo->prepare(
-                      "INSERT INTO loans (user_id, amount) VALUES (:user_id, :amount)"
+                        "INSERT INTO loans (user_id, amount) VALUES (:user_id, :amount)"
                     );
                     $query->bindValue(':user_id', $user->getId(), PDO::PARAM_INT);
-                    $query->bindValue(':amount', $loan->getAmount(), PDO::PARAM_STR);
+                    $query->bindValue(':amount', $loan->getAmount());
                     $query->execute();
                 }
             }
@@ -111,9 +73,9 @@ class PGSQLUserRepository implements RepositoryInterface
                 $documents = $user->getDocuments();
                 foreach ($documents as $document) {
                     $query = $this->pdo->prepare(
-                      "INSERT INTO documents (name, user_id) VALUES (:name, :user_id)"
+                        "INSERT INTO documents (name, user_id) VALUES (:name, :user_id)"
                     );
-                    $query->bindValue(':name', $document->getName(), PDO::PARAM_STR);
+                    $query->bindValue(':name', $document->getName());
                     $query->bindValue(':user_id', $user->getId(), PDO::PARAM_INT);
                     $query->execute();
                 }
@@ -128,5 +90,43 @@ class PGSQLUserRepository implements RepositoryInterface
         }
 
         return $user_id;
+    }
+
+    /**
+     * Initialize the PDO connection.
+     *
+     * @throws Exception if the connection fails or configuration is missing.
+     */
+    private function initPDOconnection(): void
+    {
+        try {
+            $dbHost = $this->envConfig->get('DB_HOST');
+            $dbName = $this->envConfig->get('DB_NAME');
+            $dbUser = $this->envConfig->get('DB_USER');
+            $dbPass = $this->envConfig->get('DB_PASS');
+            $dbPort = $this->envConfig->get('DB_PORT');
+
+            if (empty($dbPort)
+                || !is_numeric($dbPort)
+                || empty($dbName)
+                || empty($dbUser)
+                || empty($dbPass)) {
+                throw new Exception("Database configuration is not set properly.");
+            }
+
+            // Build DSN (Data Source Name)
+            $dsn = "pgsql:host=$dbHost;port=$dbPort;dbname=$dbName";
+
+            // Create PDO instance
+            $pdo = new PDO($dsn, $dbUser, $dbPass, [
+                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,     // Throw exceptions
+                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC, // Return rows as associative arrays
+                PDO::ATTR_EMULATE_PREPARES => false,             // Use native prepared statements
+            ]);
+
+            $this->pdo = $pdo;
+        } catch (PDOException $e) {
+            throw new Exception("Database connection failed: " . $e->getMessage());
+        }
     }
 }

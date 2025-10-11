@@ -27,9 +27,9 @@ class FileEncryptionStorageService implements FileStorageServiceInterface
         // Generate unique filename
         try {
             $new_file_name = sprintf(
-              '%s_%s.jpg',
-              preg_replace('/[^a-zA-Z0-9]/', '_', pathinfo($file['name'], PATHINFO_FILENAME)),
-              bin2hex(random_bytes(5))
+                '%s_%s.jpg',
+                preg_replace('/[^a-zA-Z0-9]/', '_', pathinfo($file['name'], PATHINFO_FILENAME)),
+                bin2hex(random_bytes(5))
             );
         } catch (Exception $e) {
             throw new Exception($e->getMessage());

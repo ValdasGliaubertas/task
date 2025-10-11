@@ -9,9 +9,9 @@ use Exception;
 class EncryptedFileStorageService implements EncryptedFileStorageServiceInterface
 {
     private string $upload_dir;
-    private DataEncryptorInterface $encryptor;
+    private DataEncryptorServiceInterface $encryptor;
 
-    public function __construct(DataEncryptorInterface $encryptor, string $upload_dir = __DIR__ . '/../../uploads')
+    public function __construct(DataEncryptorServiceInterface $encryptor, string $upload_dir = __DIR__ . '/../../uploads')
     {
         $this->encryptor = $encryptor;
         $this->upload_dir = $upload_dir;

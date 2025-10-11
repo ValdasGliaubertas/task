@@ -8,14 +8,14 @@ use App\Model\DocumentInterface;
 use App\Model\LoanInterface;
 use App\Model\UserInterface;
 use App\Service\EncryptedFileStorageServiceInterface;
-use App\Service\FormValidatorInterface;
+use App\Service\FormValidatorServiceInterface;
 use App\Service\UserRepositoryInterface;
 use Throwable;
 
 class UserController
 {
 
-    private FormValidatorInterface $validator;
+    private FormValidatorServiceInterface $validator;
 
     private EncryptedFileStorageServiceInterface $encryptedFileStorageService;
 
@@ -28,7 +28,7 @@ class UserController
     private UserRepositoryInterface $repository;
 
     public function __construct(
-      FormValidatorInterface $validator,
+      FormValidatorServiceInterface $validator,
       EncryptedFileStorageServiceInterface $encryptedFileStorageService,
       LoanInterface $loan,
       UserInterface $user,

@@ -13,12 +13,12 @@ class PGSQLUserRepository implements UserRepositoryInterface
 {
     private PDO $pdo;
 
-    private EnvConfigInterface $envConfig;
+    private EnvConfigServiceInterface $envConfig;
 
     /**
      * @throws \Exception
      */
-    public function __construct(EnvConfigInterface $envConfig)
+    public function __construct(EnvConfigServiceInterface $envConfig)
     {
         try {
             $dbHost = $envConfig->get('DB_HOST');

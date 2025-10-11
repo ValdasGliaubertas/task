@@ -1,4 +1,4 @@
-To run a task project, follow these steps: go to: /docker directory run the following command from there: docker-compose up -d --build
+To run a task project, follow these steps: go to: "docker" directory and run the following command from there: docker compose --env-file ../.env up -d --build
 
 To stop the project, use: 
 docker-compose down -v

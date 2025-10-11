@@ -21,12 +21,13 @@ class FormValidatorService implements FormValidatorServiceInterface
         }
 
         // Additionally 3rd party email validation services can be used here
-        if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL, FILTER_FLAG_EMAIL_UNICODE)) {
+        if (empty($data['email']) || !filter_var($data['email'], FILTER_VALIDATE_EMAIL, FILTER_FLAG_EMAIL_UNICODE)) {
             $errors[] = "Invalid email address.";
         }
 
-        list(, $domain) = explode('@', $data['email']);
-        if (!checkdnsrr($domain, 'MX')) {
+        $mail_parts = explode('@', $data['email']);
+        $domain = $mail_parts[1] ?? '';
+        if (empty($domain) || !checkdnsrr($domain, 'MX')) {
             $errors[] = 'Email domain cannot receive mail';
         }
 

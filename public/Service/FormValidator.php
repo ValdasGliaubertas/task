@@ -20,10 +20,19 @@ class FormValidator implements FormValidatorInterface
             $errors[] = "Name must be at least 3 characters.";
         }
 
-        if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
+        // Additionally 3rd party email validation services can be used here
+        if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL, FILTER_FLAG_EMAIL_UNICODE)) {
             $errors[] = "Invalid email address.";
         }
 
+        list(, $domain) = explode('@', $data['email']);
+        if (!checkdnsrr($domain, 'MX')) {
+            $errors[] = 'Email domain cannot receive mail';
+        }
+
+        // Simple phone validation (basic format)
+        // Real life scenario would require a big lib of each country's phone formats
+        // based on country code and number format rules either a 3rd party service.
         if (!preg_match('/^\+?\d{8,15}$/', $data['phone'])) {
             $errors[] = "Invalid phone number format.";
         }

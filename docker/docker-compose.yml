@@ -6,9 +6,9 @@ services:
       - 5432:5432
     restart: unless-stopped
     environment:
-      POSTGRES_USER: root
-      POSTGRES_PASSWORD: pA8s1@1Ty8g&aQ
-      POSTGRES_DB: my_database
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASS}
+      POSTGRES_DB: ${DB_NAME}
     volumes:
       - ./init:/docker-entrypoint-initdb.d
       - postgresql:/var/lib/postgresql/data

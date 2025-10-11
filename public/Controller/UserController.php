@@ -43,20 +43,18 @@ class UserController
         $this->repository = $repository;
     }
 
-    public function handleSubmit(): void
+    public function handleSubmit(): array
     {
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-            http_response_code(405);
-            echo json_encode(['status' => 'error', 'message' => 'Invalid request method']);
-            return;
+            // Responses should be handled by a front controller through Response object
+            return ['status' => 'error', 'message' => 'Invalid request method'];
         }
 
         // Validation and sanitization service
         [$data, $errors] = $this->validator->validate($_POST, $_FILES);
 
         if (!empty($errors)) {
-            include __DIR__ . '/../View/json_response.php';
-            return;
+            return ['status' => 'error', 'errors' => $errors];
         }
 
         // Encryption and file saving
@@ -76,19 +74,15 @@ class UserController
         try {
             $user_id = $this->repository->save($this->user);
         } catch (Throwable $e) {
-            http_response_code(500);
-            echo json_encode([
+            return [
               'status' => 'error',
               'message' => 'Failed to save user data: ' . $e->getMessage(),
-            ]);
-            return;
+            ];
         }
 
-        $response = [
+        return [
           'status' => 'success',
           'data' => ['user_id' => $user_id]
         ];
-
-        include __DIR__ . '/../View/json_response.php';
     }
 }

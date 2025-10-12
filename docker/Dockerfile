@@ -8,9 +8,11 @@ RUN apt-get update && apt-get install -y libpq-dev \
 # Copy files
 COPY ../public /var/www/html/public/
 COPY ../uploads /var/www/html/uploads/
+COPY ../tests /var/www/html/tests/
 COPY ../composer.json /var/www/html/composer.json
 COPY ../.gitignore /var/www/html/.gitignore
 COPY ../.env /var/www/html/.env
+COPY ../phpunit.xml /var/www/html/phpunit.xml
 COPY ../generate_file_storage_key.php /var/www/html/generate_file_storage_key.php
 
 # Add permissions

@@ -8,4 +8,6 @@ interface SanitizerServiceInterface
 {
     public function sanitize(array $input, array $keys): array;
 
+    public function getErrors(): array;
+
 }

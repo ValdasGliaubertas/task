@@ -13,7 +13,7 @@ final class FormSanitizerService implements SanitizerServiceInterface
 
     public function __construct(
         /** @var SanitizerInterface[] */
-        private readonly array $sanitizers
+        private readonly iterable $sanitizers
     ) {
     }
 

@@ -17,6 +17,9 @@ final class FileEncryptionStorageService implements FileStorageServiceInterface
         $this->upload_dir = $upload_dir;
     }
 
+    /**
+     * @throws Exception
+     */
     public function store(array $file): string
     {
         // Encrypted file storage

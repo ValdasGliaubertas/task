@@ -7,10 +7,10 @@ namespace App\HTTP;
 class Response implements ResponseInterface
 {
     private int $statusCode;
-    private array $headers;
+    private iterable $headers;
     private string $body;
 
-    public function __construct(int $statusCode = 200, array $headers = [], string $body = '')
+    public function __construct(int $statusCode = 200, iterable $headers = [], string $body = '')
     {
         $this->statusCode = $statusCode;
         $this->headers = $headers;
@@ -22,9 +22,9 @@ class Response implements ResponseInterface
         return $this->statusCode;
     }
 
-    public function getHeaders(): array
+    public function getHeaders(): iterable
     {
-        return $this->headers;
+        Yield from $this->headers;
     }
 
     public function getBody(): string

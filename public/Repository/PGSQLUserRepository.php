@@ -41,7 +41,7 @@ final class PGSQLUserRepository implements RepositoryInterface
             $query->bindValue(':phone_number', $user->getPhoneNumber());
             $query->execute();
             if ($query->fetch()) {
-                throw new Exception("Email already exists.");
+                throw new Exception("User already exists.");
             }
 
             // Insert user

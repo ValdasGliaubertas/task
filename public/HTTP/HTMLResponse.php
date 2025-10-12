@@ -9,7 +9,7 @@ use JetBrains\PhpStorm\NoReturn;
 final class HTMLResponse extends Response
 {
     #[NoReturn]
-    public function __construct(array $data, int $status = 200, array $headers = [])
+    public function __construct(array $data, int $status = 200, iterable $headers = [])
     {
         $headers['Content-Type'] = 'text/html; charset=UTF-8';
         parent::__construct($status, $headers, implode('', $data));

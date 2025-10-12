@@ -9,7 +9,7 @@ use JetBrains\PhpStorm\NoReturn;
 final class JsonResponse extends Response
 {
     #[NoReturn]
-    public function __construct(array $data, int $status = 200, array $headers = [])
+    public function __construct(array $data, int $status = 200, iterable $headers = [])
     {
         $headers['Content-Type'] = 'application/json';
         $headers['Cache-Control'] = 'no-cache, no-store, must-revalidate';

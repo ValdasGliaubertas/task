@@ -8,7 +8,7 @@ use Random\RandomException;
 use RuntimeException;
 use SodiumException;
 
-class DataEncryptionService implements EncryptorServiceInterface
+final class DataEncryptionService implements EncryptorServiceInterface
 {
 
     private string $key;

@@ -2,23 +2,21 @@
 
 declare(strict_types=1);
 
-namespace App\Service;
+namespace App\Repository;
 
 use App\Model\UserInterface;
+use App\Service\ConfigServiceInterface;
 use Exception;
 use PDO;
 use PDOException;
 use Throwable;
 
-class PGSQLUserRepository implements RepositoryInterface
+final class PGSQLUserRepository implements RepositoryInterface
 {
     private PDO $pdo;
 
-    private ConfigServiceInterface $envConfig;
-
-    public function __construct(ConfigServiceInterface $envConfig)
+    public function __construct(private readonly ConfigServiceInterface $envConfig)
     {
-        $this->envConfig = $envConfig;
     }
 
     /**

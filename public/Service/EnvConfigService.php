@@ -13,7 +13,7 @@ use RuntimeException;
  *  - Loads environment variables from .env file
  *  - Caches results in memory
  */
-class EnvConfigService implements ConfigServiceInterface
+final class EnvConfigService implements ConfigServiceInterface
 {
     private static ?array $cache = null;
     private static string $envPath = __DIR__ . '/../../.env';

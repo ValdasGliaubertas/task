@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>Dashboard for C:\Projects\task\public</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="_css/bootstrap.min.css?v=9.2.32" rel="stylesheet" type="text/css">
+  <link href="_css/nv.d3.min.css?v=9.2.32" rel="stylesheet" type="text/css">
+  <link href="_css/style.css?v=9.2.32" rel="stylesheet" type="text/css">
+  <link href="_css/custom.css" rel="stylesheet" type="text/css">
+ </head>
+ <body>
+  <header>
+   <div class="container-fluid">
+    <div class="row">
+     <div class="col-md-12">
+      <nav aria-label="breadcrumb">
+       <ol class="breadcrumb">
+         <li class="breadcrumb-item"><a href="index.html">C:\Projects\task\public</a></li>
+         <li class="breadcrumb-item active">(Dashboard)</li>
+
+       </ol>
+      </nav>
+     </div>
+    </div>
+   </div>
+  </header>
+  <div class="container-fluid">
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Classes</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="classCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="classComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Controller/UserFormController.php.html#19">App\Controller\UserFormController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="HTTP/HTMLResponse.php.html#9">App\HTTP\HTMLResponse</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="HTTP/JsonResponse.php.html#9">App\HTTP\JsonResponse</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="HTTP/Response.php.html#7">App\HTTP\Response</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repository/PGSQLUserRepository.php.html#14">App\Repository\PGSQLUserRepository</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Service/DataEncryptionService.php.html#11">App\Service\DataEncryptionService</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Service/EnvConfigService.php.html#16">App\Service\EnvConfigService</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Service/FileEncryptionStorageService.php.html#9">App\Service\FileEncryptionStorageService</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Service/NativeDnsChecker.php.html#7">App\Service\NativeDnsChecker</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Service/FormValidatorService.php.html#10">App\Service\FormValidatorService</a></td><td class="text-right">86%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Repository/PGSQLUserRepository.php.html#14">App\Repository\PGSQLUserRepository</a></td><td class="text-right">272</td></tr>
+       <tr><td><a href="Service/EnvConfigService.php.html#16">App\Service\EnvConfigService</a></td><td class="text-right">90</td></tr>
+       <tr><td><a href="Service/DataEncryptionService.php.html#11">App\Service\DataEncryptionService</a></td><td class="text-right">56</td></tr>
+       <tr><td><a href="Controller/UserFormController.php.html#19">App\Controller\UserFormController</a></td><td class="text-right">42</td></tr>
+       <tr><td><a href="Service/FileEncryptionStorageService.php.html#9">App\Service\FileEncryptionStorageService</a></td><td class="text-right">42</td></tr>
+       <tr><td><a href="Service/FormValidatorService.php.html#10">App\Service\FormValidatorService</a></td><td class="text-right">13</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Methods</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="methodCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="methodComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Controller/UserFormController.php.html#22"><abbr title="App\Controller\UserFormController::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controller/UserFormController.php.html#33"><abbr title="App\Controller\UserFormController::handleSubmit">handleSubmit</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="HTTP/HTMLResponse.php.html#11"><abbr title="App\HTTP\HTMLResponse::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="HTTP/JsonResponse.php.html#11"><abbr title="App\HTTP\JsonResponse::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="HTTP/Response.php.html#13"><abbr title="App\HTTP\Response::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="HTTP/Response.php.html#20"><abbr title="App\HTTP\Response::getStatusCode">getStatusCode</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="HTTP/Response.php.html#25"><abbr title="App\HTTP\Response::getHeaders">getHeaders</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="HTTP/Response.php.html#30"><abbr title="App\HTTP\Response::getBody">getBody</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repository/PGSQLUserRepository.php.html#18"><abbr title="App\Repository\PGSQLUserRepository::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repository/PGSQLUserRepository.php.html#29"><abbr title="App\Repository\PGSQLUserRepository::save">save</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repository/PGSQLUserRepository.php.html#98"><abbr title="App\Repository\PGSQLUserRepository::initPDOconnection">initPDOconnection</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Service/DataEncryptionService.php.html#16"><abbr title="App\Service\DataEncryptionService::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Service/DataEncryptionService.php.html#35"><abbr title="App\Service\DataEncryptionService::encrypt">encrypt</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Service/DataEncryptionService.php.html#49"><abbr title="App\Service\DataEncryptionService::decrypt">decrypt</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Service/EnvConfigService.php.html#24"><abbr title="App\Service\EnvConfigService::get">get</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Service/EnvConfigService.php.html#33"><abbr title="App\Service\EnvConfigService::load">load</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Service/EnvConfigService.php.html#54"><abbr title="App\Service\EnvConfigService::parseEnvContent">parseEnvContent</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Service/FileEncryptionStorageService.php.html#13"><abbr title="App\Service\FileEncryptionStorageService::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Service/FileEncryptionStorageService.php.html#20"><abbr title="App\Service\FileEncryptionStorageService::store">store</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Service/NativeDnsChecker.php.html#9"><abbr title="App\Service\NativeDnsChecker::domainHasMxRecord">domainHasMxRecord</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Service/FormValidatorService.php.html#22"><abbr title="App\Service\FormValidatorService::validate">validate</abbr></a></td><td class="text-right">85%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Repository/PGSQLUserRepository.php.html#29"><abbr title="App\Repository\PGSQLUserRepository::save">save</abbr></a></td><td class="text-right">72</td></tr>
+       <tr><td><a href="Repository/PGSQLUserRepository.php.html#98"><abbr title="App\Repository\PGSQLUserRepository::initPDOconnection">initPDOconnection</abbr></a></td><td class="text-right">56</td></tr>
+       <tr><td><a href="Controller/UserFormController.php.html#33"><abbr title="App\Controller\UserFormController::handleSubmit">handleSubmit</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="Service/EnvConfigService.php.html#54"><abbr title="App\Service\EnvConfigService::parseEnvContent">parseEnvContent</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="Service/FileEncryptionStorageService.php.html#20"><abbr title="App\Service\FileEncryptionStorageService::store">store</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="Service/DataEncryptionService.php.html#16"><abbr title="App\Service\DataEncryptionService::__construct">__construct</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="Service/EnvConfigService.php.html#33"><abbr title="App\Service\EnvConfigService::load">load</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Service/FormValidatorService.php.html#22"><abbr title="App\Service\FormValidatorService::validate">validate</abbr></a></td><td class="text-right">11</td></tr>
+       <tr><td><a href="Service/DataEncryptionService.php.html#49"><abbr title="App\Service\DataEncryptionService::decrypt">decrypt</abbr></a></td><td class="text-right">6</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <footer>
+    <hr/>
+    <p>
+     <small>Generated by <a href="https://github.com/sebastianbergmann/php-code-coverage" target="_top">php-code-coverage 9.2.32</a> using <a href="https://secure.php.net/" target="_top">PHP 8.2.12</a> and <a href="https://phpunit.de/">PHPUnit 9.6.0</a> at Sun Oct 12 17:52:22 CEST 2025.</small>
+    </p>
+   </footer>
+  </div>
+  <script src="_js/jquery.min.js?v=9.2.32" type="text/javascript"></script>
+  <script src="_js/d3.min.js?v=9.2.32" type="text/javascript"></script>
+  <script src="_js/nv.d3.min.js?v=9.2.32" type="text/javascript"></script>
+  <script type="text/javascript">
+$(document).ready(function() {
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#classCoverageDistribution svg')
+      .datum(getCoverageDistributionData([9,0,0,0,0,0,0,0,0,1,0,13], "Class Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#methodCoverageDistribution svg')
+      .datum(getCoverageDistributionData([20,0,0,0,0,0,0,0,0,1,0,50], "Method Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getCoverageDistributionData(data, label) {
+    var labels = [
+      '0%',
+      '0-10%',
+      '10-20%',
+      '20-30%',
+      '30-40%',
+      '40-50%',
+      '50-60%',
+      '60-70%',
+      '70-80%',
+      '80-90%',
+      '90-100%',
+      '100%'
+    ];
+    var values = [];
+    $.each(labels, function(key) {
+      values.push({x: labels[key], y: data[key]});
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.tooltipContent(function(graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Cyclomatic Complexity');
+
+    d3.select('#classComplexity svg')
+      .datum(getComplexityData([[0,6,"<a href=\"Controller\/UserFormController.php.html#19\">App\\Controller\\UserFormController<\/a>"],[0,1,"<a href=\"HTTP\/HTMLResponse.php.html#9\">App\\HTTP\\HTMLResponse<\/a>"],[0,1,"<a href=\"HTTP\/JsonResponse.php.html#9\">App\\HTTP\\JsonResponse<\/a>"],[0,4,"<a href=\"HTTP\/Response.php.html#7\">App\\HTTP\\Response<\/a>"],[100,4,"<a href=\"Model\/Document.php.html#7\">App\\Model\\Document<\/a>"],[100,4,"<a href=\"Model\/Loan.php.html#7\">App\\Model\\Loan<\/a>"],[100,13,"<a href=\"Model\/User.php.html#7\">App\\Model\\User<\/a>"],[0,16,"<a href=\"Repository\/PGSQLUserRepository.php.html#14\">App\\Repository\\PGSQLUserRepository<\/a>"],[0,7,"<a href=\"Service\/DataEncryptionService.php.html#11\">App\\Service\\DataEncryptionService<\/a>"],[0,9,"<a href=\"Service\/EnvConfigService.php.html#16\">App\\Service\\EnvConfigService<\/a>"],[0,6,"<a href=\"Service\/FileEncryptionStorageService.php.html#9\">App\\Service\\FileEncryptionStorageService<\/a>"],[100,10,"<a href=\"Service\/FormSanitizerService.php.html#9\">App\\Service\\FormSanitizerService<\/a>"],[86.36363636363636,13,"<a href=\"Service\/FormValidatorService.php.html#10\">App\\Service\\FormValidatorService<\/a>"],[0,1,"<a href=\"Service\/NativeDnsChecker.php.html#7\">App\\Service\\NativeDnsChecker<\/a>"],[100,2,"<a href=\"Service\/Sanitizers\/SanitizeEmail.php.html#7\">App\\Service\\Sanitizers\\SanitizeEmail<\/a>"],[100,5,"<a href=\"Service\/Sanitizers\/SanitizeLoanAmount.php.html#7\">App\\Service\\Sanitizers\\SanitizeLoanAmount<\/a>"],[100,2,"<a href=\"Service\/Sanitizers\/SanitizePhoneNr.php.html#7\">App\\Service\\Sanitizers\\SanitizePhoneNr<\/a>"],[100,2,"<a href=\"Service\/Sanitizers\/SanitizeString.php.html#7\">App\\Service\\Sanitizers\\SanitizeString<\/a>"],[100,8,"<a href=\"Service\/Validators\/ValidateEmail.php.html#9\">App\\Service\\Validators\\ValidateEmail<\/a>"],[100,5,"<a href=\"Service\/Validators\/ValidateFullName.php.html#7\">App\\Service\\Validators\\ValidateFullName<\/a>"],[100,8,"<a href=\"Service\/Validators\/ValidateJPGFile.php.html#7\">App\\Service\\Validators\\ValidateJPGFile<\/a>"],[100,5,"<a href=\"Service\/Validators\/ValidateLoanAmount.php.html#7\">App\\Service\\Validators\\validateLoanAmount<\/a>"],[100,4,"<a href=\"Service\/Validators\/ValidatePhoneNr.php.html#7\">App\\Service\\Validators\\validatePhoneNr<\/a>"]], 'Class Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.tooltipContent(function(graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Method Complexity');
+
+    d3.select('#methodComplexity svg')
+      .datum(getComplexityData([[0,1,"<a href=\"Controller\/UserFormController.php.html#22\">App\\Controller\\UserFormController::__construct<\/a>"],[0,5,"<a href=\"Controller\/UserFormController.php.html#33\">App\\Controller\\UserFormController::handleSubmit<\/a>"],[0,1,"<a href=\"HTTP\/HTMLResponse.php.html#11\">App\\HTTP\\HTMLResponse::__construct<\/a>"],[0,1,"<a href=\"HTTP\/JsonResponse.php.html#11\">App\\HTTP\\JsonResponse::__construct<\/a>"],[0,1,"<a href=\"HTTP\/Response.php.html#13\">App\\HTTP\\Response::__construct<\/a>"],[0,1,"<a href=\"HTTP\/Response.php.html#20\">App\\HTTP\\Response::getStatusCode<\/a>"],[0,1,"<a href=\"HTTP\/Response.php.html#25\">App\\HTTP\\Response::getHeaders<\/a>"],[0,1,"<a href=\"HTTP\/Response.php.html#30\">App\\HTTP\\Response::getBody<\/a>"],[100,1,"<a href=\"Model\/Document.php.html#14\">App\\Model\\Document::getId<\/a>"],[100,1,"<a href=\"Model\/Document.php.html#19\">App\\Model\\Document::setId<\/a>"],[100,1,"<a href=\"Model\/Document.php.html#24\">App\\Model\\Document::getName<\/a>"],[100,1,"<a href=\"Model\/Document.php.html#29\">App\\Model\\Document::setName<\/a>"],[100,1,"<a href=\"Model\/Loan.php.html#13\">App\\Model\\Loan::getAmount<\/a>"],[100,1,"<a href=\"Model\/Loan.php.html#18\">App\\Model\\Loan::setAmount<\/a>"],[100,1,"<a href=\"Model\/Loan.php.html#23\">App\\Model\\Loan::getId<\/a>"],[100,1,"<a href=\"Model\/Loan.php.html#28\">App\\Model\\Loan::setId<\/a>"],[100,1,"<a href=\"Model\/User.php.html#21\">App\\Model\\User::__construct<\/a>"],[100,1,"<a href=\"Model\/User.php.html#25\">App\\Model\\User::getId<\/a>"],[100,1,"<a href=\"Model\/User.php.html#30\">App\\Model\\User::setId<\/a>"],[100,1,"<a href=\"Model\/User.php.html#35\">App\\Model\\User::getFullName<\/a>"],[100,1,"<a href=\"Model\/User.php.html#40\">App\\Model\\User::setFullName<\/a>"],[100,1,"<a href=\"Model\/User.php.html#45\">App\\Model\\User::getEmail<\/a>"],[100,1,"<a href=\"Model\/User.php.html#50\">App\\Model\\User::setEmail<\/a>"],[100,1,"<a href=\"Model\/User.php.html#55\">App\\Model\\User::getPhoneNumber<\/a>"],[100,1,"<a href=\"Model\/User.php.html#60\">App\\Model\\User::setPhoneNumber<\/a>"],[100,1,"<a href=\"Model\/User.php.html#65\">App\\Model\\User::getLoans<\/a>"],[100,1,"<a href=\"Model\/User.php.html#70\">App\\Model\\User::addLoan<\/a>"],[100,1,"<a href=\"Model\/User.php.html#75\">App\\Model\\User::getDocuments<\/a>"],[100,1,"<a href=\"Model\/User.php.html#80\">App\\Model\\User::addDocument<\/a>"],[0,1,"<a href=\"Repository\/PGSQLUserRepository.php.html#18\">App\\Repository\\PGSQLUserRepository::__construct<\/a>"],[0,8,"<a href=\"Repository\/PGSQLUserRepository.php.html#29\">App\\Repository\\PGSQLUserRepository::save<\/a>"],[0,7,"<a href=\"Repository\/PGSQLUserRepository.php.html#98\">App\\Repository\\PGSQLUserRepository::initPDOconnection<\/a>"],[0,4,"<a href=\"Service\/DataEncryptionService.php.html#16\">App\\Service\\DataEncryptionService::__construct<\/a>"],[0,1,"<a href=\"Service\/DataEncryptionService.php.html#35\">App\\Service\\DataEncryptionService::encrypt<\/a>"],[0,2,"<a href=\"Service\/DataEncryptionService.php.html#49\">App\\Service\\DataEncryptionService::decrypt<\/a>"],[0,1,"<a href=\"Service\/EnvConfigService.php.html#24\">App\\Service\\EnvConfigService::get<\/a>"],[0,3,"<a href=\"Service\/EnvConfigService.php.html#33\">App\\Service\\EnvConfigService::load<\/a>"],[0,5,"<a href=\"Service\/EnvConfigService.php.html#54\">App\\Service\\EnvConfigService::parseEnvContent<\/a>"],[0,1,"<a href=\"Service\/FileEncryptionStorageService.php.html#13\">App\\Service\\FileEncryptionStorageService::__construct<\/a>"],[0,5,"<a href=\"Service\/FileEncryptionStorageService.php.html#20\">App\\Service\\FileEncryptionStorageService::store<\/a>"],[100,1,"<a href=\"Service\/FormSanitizerService.php.html#14\">App\\Service\\FormSanitizerService::__construct<\/a>"],[100,1,"<a href=\"Service\/FormSanitizerService.php.html#20\">App\\Service\\FormSanitizerService::getErrors<\/a>"],[100,8,"<a href=\"Service\/FormSanitizerService.php.html#25\">App\\Service\\FormSanitizerService::sanitize<\/a>"],[100,1,"<a href=\"Service\/FormValidatorService.php.html#14\">App\\Service\\FormValidatorService::__construct<\/a>"],[85,11,"<a href=\"Service\/FormValidatorService.php.html#22\">App\\Service\\FormValidatorService::validate<\/a>"],[100,1,"<a href=\"Service\/FormValidatorService.php.html#58\">App\\Service\\FormValidatorService::getErrors<\/a>"],[0,1,"<a href=\"Service\/NativeDnsChecker.php.html#9\">App\\Service\\NativeDnsChecker::domainHasMxRecord<\/a>"],[100,1,"<a href=\"Service\/Sanitizers\/SanitizeEmail.php.html#10\">App\\Service\\Sanitizers\\SanitizeEmail::supports<\/a>"],[100,1,"<a href=\"Service\/Sanitizers\/SanitizeEmail.php.html#15\">App\\Service\\Sanitizers\\SanitizeEmail::sanitize<\/a>"],[100,4,"<a href=\"Service\/Sanitizers\/SanitizeLoanAmount.php.html#10\">App\\Service\\Sanitizers\\SanitizeLoanAmount::sanitize<\/a>"],[100,1,"<a href=\"Service\/Sanitizers\/SanitizeLoanAmount.php.html#27\">App\\Service\\Sanitizers\\SanitizeLoanAmount::supports<\/a>"],[100,1,"<a href=\"Service\/Sanitizers\/SanitizePhoneNr.php.html#10\">App\\Service\\Sanitizers\\SanitizePhoneNr::supports<\/a>"],[100,1,"<a href=\"Service\/Sanitizers\/SanitizePhoneNr.php.html#15\">App\\Service\\Sanitizers\\SanitizePhoneNr::sanitize<\/a>"],[100,1,"<a href=\"Service\/Sanitizers\/SanitizeString.php.html#10\">App\\Service\\Sanitizers\\SanitizeString::supports<\/a>"],[100,1,"<a href=\"Service\/Sanitizers\/SanitizeString.php.html#16\">App\\Service\\Sanitizers\\SanitizeString::sanitize<\/a>"],[100,1,"<a href=\"Service\/Validators\/ValidateEmail.php.html#14\">App\\Service\\Validators\\ValidateEmail::__construct<\/a>"],[100,5,"<a href=\"Service\/Validators\/ValidateEmail.php.html#18\">App\\Service\\Validators\\ValidateEmail::validate<\/a>"],[100,1,"<a href=\"Service\/Validators\/ValidateEmail.php.html#36\">App\\Service\\Validators\\ValidateEmail::getErrors<\/a>"],[100,1,"<a href=\"Service\/Validators\/ValidateEmail.php.html#41\">App\\Service\\Validators\\ValidateEmail::supports<\/a>"],[100,3,"<a href=\"Service\/Validators\/ValidateFullName.php.html#12\">App\\Service\\Validators\\ValidateFullName::validate<\/a>"],[100,1,"<a href=\"Service\/Validators\/ValidateFullName.php.html#27\">App\\Service\\Validators\\ValidateFullName::supports<\/a>"],[100,1,"<a href=\"Service\/Validators\/ValidateFullName.php.html#32\">App\\Service\\Validators\\ValidateFullName::getErrors<\/a>"],[100,5,"<a href=\"Service\/Validators\/ValidateJPGFile.php.html#12\">App\\Service\\Validators\\ValidateJPGFile::validate<\/a>"],[100,1,"<a href=\"Service\/Validators\/ValidateJPGFile.php.html#41\">App\\Service\\Validators\\ValidateJPGFile::getErrors<\/a>"],[100,2,"<a href=\"Service\/Validators\/ValidateJPGFile.php.html#46\">App\\Service\\Validators\\ValidateJPGFile::supports<\/a>"],[100,3,"<a href=\"Service\/Validators\/ValidateLoanAmount.php.html#12\">App\\Service\\Validators\\validateLoanAmount::validate<\/a>"],[100,1,"<a href=\"Service\/Validators\/ValidateLoanAmount.php.html#21\">App\\Service\\Validators\\validateLoanAmount::supports<\/a>"],[100,1,"<a href=\"Service\/Validators\/ValidateLoanAmount.php.html#26\">App\\Service\\Validators\\validateLoanAmount::getErrors<\/a>"],[100,2,"<a href=\"Service\/Validators\/ValidatePhoneNr.php.html#12\">App\\Service\\Validators\\validatePhoneNr::validate<\/a>"],[100,1,"<a href=\"Service\/Validators\/ValidatePhoneNr.php.html#24\">App\\Service\\Validators\\validatePhoneNr::supports<\/a>"],[100,1,"<a href=\"Service\/Validators\/ValidatePhoneNr.php.html#29\">App\\Service\\Validators\\validatePhoneNr::getErrors<\/a>"]], 'Method Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getComplexityData(data, label) {
+    var values = [];
+    $.each(data, function(key) {
+      var value = Math.round(data[key][0]*100) / 100;
+      values.push({
+        x: value,
+        y: data[key][1],
+        class: data[key][2],
+        size: 0.05,
+        shape: 'diamond'
+      });
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+});
+  </script>
+ </body>
+</html>

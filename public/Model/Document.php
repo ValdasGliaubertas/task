@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Model;
 
-class Document implements DocumentInterface
+final class Document implements DocumentInterface
 {
 
     private ?int $id;

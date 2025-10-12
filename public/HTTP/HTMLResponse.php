@@ -6,7 +6,7 @@ namespace App\HTTP;
 
 use JetBrains\PhpStorm\NoReturn;
 
-class HTMLResponse extends Response
+final class HTMLResponse extends Response
 {
     #[NoReturn]
     public function __construct(array $data, int $status = 200, array $headers = [])

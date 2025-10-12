@@ -10,44 +10,24 @@ use App\HTTP\Response;
 use App\Model\DocumentInterface;
 use App\Model\LoanInterface;
 use App\Model\UserInterface;
+use App\Repository\RepositoryInterface;
 use App\Service\FileStorageServiceInterface;
-use App\Service\RepositoryInterface;
 use App\Service\SanitizerServiceInterface;
 use App\Service\ValidatorServiceInterface;
 use Throwable;
 
-class UserFormController
+final readonly class UserFormController
 {
 
-    private ValidatorServiceInterface $validator;
-
-    private FileStorageServiceInterface $fileEncryptionStorageService;
-
-    private LoanInterface $loan;
-
-    private UserInterface $user;
-
-    private DocumentInterface $document;
-
-    private RepositoryInterface $repository;
-    private SanitizerServiceInterface $sanitizer;
-
     public function __construct(
-        SanitizerServiceInterface $sanitizer,
-        ValidatorServiceInterface $validator,
-        FileStorageServiceInterface $fileEncryptionStorageService,
-        LoanInterface $loan,
-        UserInterface $user,
-        DocumentInterface $document,
-        RepositoryInterface $repository
+        private SanitizerServiceInterface $sanitizer,
+        private ValidatorServiceInterface $validator,
+        private FileStorageServiceInterface $fileEncryptionStorageService,
+        private LoanInterface $loan,
+        private UserInterface $user,
+        private DocumentInterface $document,
+        private RepositoryInterface $repository
     ) {
-        $this->sanitizer = $sanitizer;
-        $this->validator = $validator;
-        $this->fileEncryptionStorageService = $fileEncryptionStorageService;
-        $this->loan = $loan;
-        $this->user = $user;
-        $this->document = $document;
-        $this->repository = $repository;
     }
 
     public function handleSubmit(): Response
@@ -62,13 +42,13 @@ class UserFormController
         }
 
         // Validation and sanitization services
-        // If input do not have sanitization described then error is thrown too
+        // If input do not have sanitization for the input described then error is thrown too
         $data = $this->sanitizer->sanitize($_POST, ['full_name', 'email', 'phone', 'loan_amount']);
         if (!empty($this->sanitizer->getErrors())) {
             return new JsonResponse(['status' => 'error', 'errors' => $this->sanitizer->getErrors()], 200);
         }
 
-        // If input do not have validation described then error is thrown too
+        // If input do not have validation for the input described then error is thrown too
         $this->validator->validate($data, $_FILES);
         $errors = $this->validator->getErrors();
         if (!empty($errors)) {

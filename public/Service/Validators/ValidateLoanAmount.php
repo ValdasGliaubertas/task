@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Service\Validators;
 
-final class validateLoanAmount implements StringValidatorInterface
+final class ValidateLoanAmount implements StringValidatorInterface
 {
 
     private array $errors = [];

@@ -8,6 +8,6 @@ final class NativeDnsChecker implements DnsCheckerInterface
 {
     public function domainHasMxRecord(string $domain): bool
     {
-        return checkdnsrr($domain, 'MX');
+        return checkdnsrr($domain);
     }
 }

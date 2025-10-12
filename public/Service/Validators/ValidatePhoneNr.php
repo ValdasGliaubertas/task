@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Service\Validators;
 
-final class validatePhoneNr implements StringValidatorInterface
+final class ValidatePhoneNr implements StringValidatorInterface
 {
 
     private array $errors = [];

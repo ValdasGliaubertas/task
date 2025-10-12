@@ -5,19 +5,19 @@ Content-Type: multipart/form-data; boundary=WebForm
 --WebForm
 Content-Disposition: form-data; name="full_name"
 
-Jon e
+Jong e
 --WebForm
 Content-Disposition: form-data; name="email"
 
-john13@example.com
+john131@example.com
 --WebForm
 Content-Disposition: form-data; name="phone"
 
-+371234567890
++371234567190
 --WebForm
 Content-Disposition: form-data; name="loan_amount"
 
-7000
+10.50
 --WebForm
 Content-Disposition: form-data; name="file"; filename="passport.jpg"
 Content-Type: image/jpeg

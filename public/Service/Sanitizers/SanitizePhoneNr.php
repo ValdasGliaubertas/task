@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Service\Sanitizers;
 
-use InputMap;
+use App\maps\InputMap;
 
 final class SanitizePhoneNr implements SanitizerInterface
 {

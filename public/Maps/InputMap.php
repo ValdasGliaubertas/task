@@ -1,6 +1,10 @@
 <?php
 
-readonly class InputMap
+declare(strict_types=1);
+
+namespace App\maps;
+
+class InputMap
 {
     public const FULL_NAME = 'full_name';
     public const EMAIL = 'email';

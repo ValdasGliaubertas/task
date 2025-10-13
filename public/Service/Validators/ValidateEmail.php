@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Service\Validators;
 
 use App\Service\DnsCheckerInterface;
-use InputMap;
+use App\maps\InputMap;
 
 final class ValidateEmail implements StringValidatorInterface
 {

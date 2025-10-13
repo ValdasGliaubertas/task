@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace App\Service\Sanitizers;
 
+use InputMap;
+
 final class SanitizeEmail implements SanitizerInterface
 {
 
     public function supportedKeys(): array
     {
-        return ['email'];
+        return [InputMap::EMAIL];
     }
 
     public function sanitize(string $input): string

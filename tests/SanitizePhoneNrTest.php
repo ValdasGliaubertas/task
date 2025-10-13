@@ -62,7 +62,7 @@ final class SanitizePhoneNrTest extends TestCase
     public function SupportsProvider(): array
     {
         return [
-            ['phone', true],
+            [InputMap::PHONE, true],
             ['Phone', false],
             ['Phone1', false],
             ['PHONE', false],

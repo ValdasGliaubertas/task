@@ -27,10 +27,10 @@ final class FormValidatorTest extends TestCase
         $tmpFile .= '.jpg';
 
         $input = [
-            'full_name' => 'John Doe',
-            'email' => 'example@example.com',
-            'phone' => '+37062426954',
-            'loan_amount' => '5000'
+            InputMap::FULL_NAME => 'John Doe',
+            InputMap::EMAIL => 'example@example.com',
+            InputMap::PHONE => '+37062426954',
+            InputMap::LOAN_AMOUNT => '5000'
         ];
 
         $this->validator->validateInputs($input);
@@ -78,10 +78,10 @@ final class FormValidatorTest extends TestCase
         $tmpFile .= '.jpg';
 
         $input = [
-            'full_name' => 'Jo',
-            'email' => 'example@example@.com',
-            'phone' => '+370',
-            'loan_amount' => '0'
+            InputMap::FULL_NAME => 'Jo',
+            InputMap::EMAIL => 'example@example@.com',
+            InputMap::PHONE => '+370',
+            InputMap::LOAN_AMOUNT => '0'
         ];
 
         $this->validator->validateInputs($input);

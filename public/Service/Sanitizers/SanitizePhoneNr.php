@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace App\Service\Sanitizers;
 
+use InputMap;
+
 final class SanitizePhoneNr implements SanitizerInterface
 {
 
     public function supportedKeys(): array
     {
-        return ['phone'];
+        return [InputMap::PHONE];
     }
 
     public function sanitize(string $input): string

@@ -4,13 +4,15 @@ declare(strict_types=1);
 
 namespace App\Service\Sanitizers;
 
+use InputMap;
+
 final class SanitizeString implements SanitizerInterface
 {
 
     public function supportedKeys(): array
     {
         // Array of input names can be matched here if required
-        return ['full_name'];
+        return [InputMap::FULL_NAME];
     }
 
     public function sanitize(string $input): string

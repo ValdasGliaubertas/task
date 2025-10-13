@@ -41,7 +41,7 @@ final class ValidateLoanAmountTest extends TestCase
     {
         return [
             ['loan+amount', false],
-            ['loan_amount', true],
+            [InputMap::LOAN_AMOUNT, true],
             ['LoanAmount', false],
             ['Loan_Amount', false],
         ];

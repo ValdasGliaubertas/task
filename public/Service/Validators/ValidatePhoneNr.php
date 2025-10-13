@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Service\Validators;
 
+use InputMap;
+
 final class ValidatePhoneNr implements StringValidatorInterface
 {
 
@@ -23,7 +25,7 @@ final class ValidatePhoneNr implements StringValidatorInterface
 
     public function supportedKeys(): array
     {
-        return ['phone'];
+        return [InputMap::PHONE];
     }
 
     public function getErrors(): array

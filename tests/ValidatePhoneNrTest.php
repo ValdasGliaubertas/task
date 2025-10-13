@@ -49,7 +49,7 @@ final class ValidatePhoneNrTest extends TestCase
     {
         return [
             ['phone_', false],
-            ['phone', true],
+            [InputMap::PHONE, true],
             ['phone_nr', false],
             ['PHONE', false],
             ['Phone', false]

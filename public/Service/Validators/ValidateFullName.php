@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Service\Validators;
 
+use InputMap;
+
 final class ValidateFullName implements StringValidatorInterface
 {
 
@@ -26,7 +28,7 @@ final class ValidateFullName implements StringValidatorInterface
 
     public function supportedKeys(): array
     {
-        return ['full_name'];
+        return [InputMap::FULL_NAME];
     }
 
     public function getErrors(): array

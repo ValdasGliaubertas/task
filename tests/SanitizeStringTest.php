@@ -74,7 +74,7 @@ final class SanitizeStringTest extends TestCase
     public function SupportsProvider(): array
     {
         return [
-            ['full_name', true],
+            [InputMap::FULL_NAME, true],
             ['FULL_NAME', false],
             ['LoanAmount', false],
             ['Loan_Amount', false],

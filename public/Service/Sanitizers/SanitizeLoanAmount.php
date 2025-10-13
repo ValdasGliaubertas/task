@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Service\Sanitizers;
 
+use InputMap;
+
 final class SanitizeLoanAmount implements SanitizerInterface
 {
 
@@ -26,6 +28,6 @@ final class SanitizeLoanAmount implements SanitizerInterface
 
     public function supportedKeys(): array
     {
-        return ['loan_amount'];
+        return [InputMap::LOAN_AMOUNT];
     }
 }

@@ -45,7 +45,7 @@ final class ValidateFullNameTest extends TestCase
     {
         return [
             ['full+name', false],
-            ['full_name', true],
+            [InputMap::FULL_NAME, true],
             ['FullName', false],
             ['Full_Name', false],
         ];

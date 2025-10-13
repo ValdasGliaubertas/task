@@ -76,7 +76,7 @@ final class ValidateEmailTest extends TestCase
     public function SupportsProvider(): array
     {
         return [
-            ['email', true],
+            [InputMap::EMAIL, true],
             ['EMAIL', false],
             ['Email', false],
             ['eMaIl', false],

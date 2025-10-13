@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Service\Validators;
 
 use App\Service\DnsCheckerInterface;
+use InputMap;
 
 final class ValidateEmail implements StringValidatorInterface
 {
@@ -40,6 +41,6 @@ final class ValidateEmail implements StringValidatorInterface
 
     public function supportedKeys(): array
     {
-        return ['email'];
+        return [InputMap::EMAIL];
     }
 }

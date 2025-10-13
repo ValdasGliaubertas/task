@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Service\Validators;
 
+use InputMap;
+
 final class ValidateLoanAmount implements StringValidatorInterface
 {
 
@@ -20,7 +22,7 @@ final class ValidateLoanAmount implements StringValidatorInterface
 
     public function supportedKeys(): array
     {
-        return ['loan_amount'];
+        return [InputMap::LOAN_AMOUNT];
     }
 
     public function getErrors(): array

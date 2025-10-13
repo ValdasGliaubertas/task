@@ -17,7 +17,7 @@ final class FormSanitizerTest extends TestCase
     {
         return [
             [['nonexistent_key' => 'value'], ['nonexistent_key']],
-            [['email' => null], ['another_key']],
+            [[InputMap::EMAIL => null], ['another_key']],
             [[], ['emai']],
             [['some key'], ['some key']],
             [[], ['test']]
@@ -27,10 +27,10 @@ final class FormSanitizerTest extends TestCase
     public static function sanitizeSuccessProvider(): array
     {
         return [
-            [['email' => 'email@test.com'], ['email']],
-            [['phone' => '+37648383726'], ['phone']],
-            [['full_name' => 'Name Surname'], ['full_name']],
-            [['loan_amount' => '1234'], ['loan_amount']],
+            [[InputMap::EMAIL => 'email@test.com'], [InputMap::EMAIL]],
+            [[InputMap::PHONE => '+37648383726'], [InputMap::PHONE]],
+            [[InputMap::FULL_NAME => 'Name Surname'], [InputMap::FULL_NAME]],
+            [[InputMap::LOAN_AMOUNT => '1234'], [InputMap::LOAN_AMOUNT]],
         ];
     }
 

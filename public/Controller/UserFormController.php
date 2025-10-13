@@ -14,6 +14,7 @@ use App\Repository\RepositoryInterface;
 use App\Service\FileStorageServiceInterface;
 use App\Service\SanitizerServiceInterface;
 use App\Service\ValidatorServiceInterface;
+use InputMap;
 use Throwable;
 
 final readonly class UserFormController
@@ -43,7 +44,12 @@ final readonly class UserFormController
 
         // Validation and sanitization services
         // If input do not have sanitization class matched, the then error is thrown too, to not bypass
-        $data = $this->sanitizer->sanitizeInputs($_POST, ['full_name', 'email', 'phone', 'loan_amount']);
+        $data = $this->sanitizer->sanitizeInputs($_POST, [
+            InputMap::FULL_NAME,
+            InputMap::EMAIL,
+            InputMap::PHONE,
+            InputMap::LOAN_AMOUNT
+        ]);
         if (!empty($this->sanitizer->getErrors())) {
             return new JsonResponse(['status' => 'error', 'errors' => $this->sanitizer->getErrors()], 200);
         }

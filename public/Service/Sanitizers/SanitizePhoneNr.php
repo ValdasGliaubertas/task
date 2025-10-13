@@ -7,9 +7,9 @@ namespace App\Service\Sanitizers;
 final class SanitizePhoneNr implements SanitizerInterface
 {
 
-    public function supports(string $key): bool
+    public function supportedKeys(): array
     {
-        return strtolower($key) === 'phone';
+        return ['phone'];
     }
 
     public function sanitize(string $input): string

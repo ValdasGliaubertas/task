@@ -18,9 +18,9 @@ final class FormSanitizerTest extends TestCase
         return [
             [['nonexistent_key' => 'value'], ['nonexistent_key']],
             [['email' => null], ['another_key']],
-            [[], ['email']],
-            [['some key'], []],
-            [[], []]
+            [[], ['emai']],
+            [['some key'], ['some key']],
+            [[], ['test']]
         ];
     }
 
@@ -44,7 +44,7 @@ final class FormSanitizerTest extends TestCase
      */
     public function testErrorsForSanitize(array $input = [], $allowed_keys = []): void
     {
-        $this->sanitizer->sanitize($input, $allowed_keys);
+        $this->sanitizer->sanitizeInputs($input, $allowed_keys);
         $this->assertNotEmpty($this->sanitizer->getErrors());
     }
 
@@ -53,7 +53,7 @@ final class FormSanitizerTest extends TestCase
      */
     public function testSuccessForSanitize(array $input = [], $allowed_keys = []): void
     {
-        $this->sanitizer->sanitize($input, $allowed_keys);
+        $this->sanitizer->sanitizeInputs($input, $allowed_keys);
         $this->assertEmpty($this->sanitizer->getErrors());
     }
 

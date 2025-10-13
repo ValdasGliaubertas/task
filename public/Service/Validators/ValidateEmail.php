@@ -38,8 +38,8 @@ final class ValidateEmail implements StringValidatorInterface
         return $this->errors;
     }
 
-    public function supports(string $key): bool
+    public function supportedKeys(): array
     {
-        return strtolower($key) === 'email';
+        return ['email'];
     }
 }

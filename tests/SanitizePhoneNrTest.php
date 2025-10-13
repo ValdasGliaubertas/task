@@ -63,9 +63,9 @@ final class SanitizePhoneNrTest extends TestCase
     {
         return [
             ['phone', true],
-            ['Phone', true],
+            ['Phone', false],
             ['Phone1', false],
-            ['PHONE', true],
+            ['PHONE', false],
             ['email', false],
             ['full_name', false],
             ['loan_amount', false],
@@ -79,6 +79,6 @@ final class SanitizePhoneNrTest extends TestCase
      */
     function testSupports(string $input, bool $expected): void
     {
-        $this->assertSame($this->sanitizer->supports($input), $expected);
+        $this->assertSame(in_array($input, $this->sanitizer->supportedKeys()), $expected);
     }
 }

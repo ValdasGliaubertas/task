@@ -50,9 +50,9 @@ final class ValidatePhoneNrTest extends TestCase
         return [
             ['phone_', false],
             ['phone', true],
-            ['phhone_nr', false],
-            ['PHONE', true],
-            ['Phone', true]
+            ['phone_nr', false],
+            ['PHONE', false],
+            ['Phone', false]
         ];
     }
 
@@ -62,6 +62,6 @@ final class ValidatePhoneNrTest extends TestCase
      */
     function testSupports(string $input, bool $expected): void
     {
-        $this->assertSame($this->validator->supports($input), $expected);
+        $this->assertSame(in_array($input, $this->validator->supportedKeys()), $expected);
     }
 }

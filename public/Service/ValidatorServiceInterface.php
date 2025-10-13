@@ -6,7 +6,9 @@ namespace App\Service;
 
 interface ValidatorServiceInterface
 {
-    public function validate(array $input, array $files): void;
+    public function validateInputs(array $input): void;
+
+    public function validateFiles(array $files): void;
 
     public function getErrors(): array;
 

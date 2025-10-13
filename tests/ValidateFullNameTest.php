@@ -47,7 +47,7 @@ final class ValidateFullNameTest extends TestCase
             ['full+name', false],
             ['full_name', true],
             ['FullName', false],
-            ['Full_Name', true],
+            ['Full_Name', false],
         ];
     }
 
@@ -57,6 +57,6 @@ final class ValidateFullNameTest extends TestCase
      */
     function testSupports(string $input, bool $expected): void
     {
-        $this->assertSame($this->validator->supports($input), $expected);
+        $this->assertSame(in_array($input, $this->validator->supportedKeys()), $expected);
     }
 }

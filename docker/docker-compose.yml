@@ -27,6 +27,7 @@ services:
     volumes:
       - ../public:/var/www/html/public
       - ../uploads:/var/www/html/uploads
+      - ../tests:/var/www/html/tests
       - ./apache/apache.conf:/etc/apache2/sites-available/000-default.conf
     environment:
       - APACHE_LOG_DIR=/var/log/apache2

@@ -6,6 +6,6 @@ interface SanitizerInterface
 {
     public function sanitize(string $input): string;
 
-    public function supports(string $key): bool;
+    public function supportedKeys(): array;
 
 }

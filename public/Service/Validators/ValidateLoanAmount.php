@@ -18,9 +18,9 @@ final class ValidateLoanAmount implements StringValidatorInterface
         return true;
     }
 
-    public function supports(string $key): bool
+    public function supportedKeys(): array
     {
-        return strtolower($key) === "loan_amount";
+        return ['loan_amount'];
     }
 
     public function getErrors(): array

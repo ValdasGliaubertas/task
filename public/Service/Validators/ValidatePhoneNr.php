@@ -21,9 +21,9 @@ final class ValidatePhoneNr implements StringValidatorInterface
         return true;
     }
 
-    public function supports(string $key): bool
+    public function supportedKeys(): array
     {
-        return strtolower($key) === "phone";
+        return ['phone'];
     }
 
     public function getErrors(): array

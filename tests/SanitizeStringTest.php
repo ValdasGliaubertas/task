@@ -75,13 +75,13 @@ final class SanitizeStringTest extends TestCase
     {
         return [
             ['full_name', true],
-            ['FULL_NAME', true],
+            ['FULL_NAME', false],
             ['LoanAmount', false],
             ['Loan_Amount', false],
             ['email', false],
             ['phone', false],
             ['address', false],
-            ['Full_Name', true],
+            ['Full_Name', false],
         ];
     }
 
@@ -91,6 +91,6 @@ final class SanitizeStringTest extends TestCase
      */
     function testSupports(string $input, bool $expected): void
     {
-        $this->assertSame($this->sanitizer->supports($input), $expected);
+        $this->assertSame(in_array($input, $this->sanitizer->supportedKeys()), $expected);
     }
 }

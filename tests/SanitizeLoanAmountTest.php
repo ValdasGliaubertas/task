@@ -68,7 +68,7 @@ final class SanitizeLoanAmountTest extends TestCase
             ['loan+amount', false],
             ['loan_amount', true],
             ['LoanAmount', false],
-            ['Loan_Amount', true],
+            ['Loan_Amount', false],
         ];
     }
 
@@ -78,6 +78,6 @@ final class SanitizeLoanAmountTest extends TestCase
      */
     function testSupports(string $input, bool $expected): void
     {
-        $this->assertSame($this->sanitizer->supports($input), $expected);
+        $this->assertSame(in_array($input, $this->sanitizer->supportedKeys()), $expected);
     }
 }

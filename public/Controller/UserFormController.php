@@ -42,14 +42,15 @@ final readonly class UserFormController
         }
 
         // Validation and sanitization services
-        // If input do not have sanitization for the input described then error is thrown too
-        $data = $this->sanitizer->sanitize($_POST, ['full_name', 'email', 'phone', 'loan_amount']);
+        // If input do not have sanitization class matched, the then error is thrown too, to not bypass
+        $data = $this->sanitizer->sanitizeInputs($_POST, ['full_name', 'email', 'phone', 'loan_amount']);
         if (!empty($this->sanitizer->getErrors())) {
             return new JsonResponse(['status' => 'error', 'errors' => $this->sanitizer->getErrors()], 200);
         }
 
-        // If input do not have validation for the input described then error is thrown too
-        $this->validator->validate($data, $_FILES);
+        // If input do not have validation class matched, the error is thrown too, to not bypass validation
+        $this->validator->validateInputs($data);
+        $this->validator->validateFiles($_FILES);
         $errors = $this->validator->getErrors();
         if (!empty($errors)) {
             return new JsonResponse(['status' => 'error', 'errors' => $errors], 200);

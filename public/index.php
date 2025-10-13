@@ -39,12 +39,13 @@ $form_sanitizer = new FormSanitizerService([
     new SanitizeString(),
 ]);
 $dns_checker = new NativeDnsChecker();
-$form_validator = new FormValidatorService([
-    new ValidateEmail(new NativeDnsChecker()),
-    new ValidateFullName(),
-    new ValidatePhoneNr(),
-    new validateLoanAmount(),
-],
+$form_validator = new FormValidatorService(
+    [
+        new ValidateEmail(new NativeDnsChecker()),
+        new ValidateFullName(),
+        new ValidatePhoneNr(),
+        new validateLoanAmount(),
+    ],
     [
         new ValidateJPGFile()
     ]

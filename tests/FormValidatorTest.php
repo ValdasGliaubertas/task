@@ -33,6 +33,23 @@ final class FormValidatorTest extends TestCase
             'loan_amount' => '5000'
         ];
 
+        $this->validator->validateInputs($input);
+        $errors = $this->validator->getErrors();
+        $this->assertEmpty($errors);
+        unlink($tmpFile);
+    }
+
+    /**
+     * Test that valid input passes all validations.
+     */
+    public function testValidFilePasses(): void
+    {
+        $tmpFile = tempnam(sys_get_temp_dir(), 'tst');
+        file_put_contents($tmpFile, "\xFF\xD8\xFF" . 'fake image content');
+        // simulate jpeg
+        rename($tmpFile, $tmpFile . '.jpg');
+        $tmpFile .= '.jpg';
+
         $files = [
             'file' => [
                 'name' => 'passport.jpg',
@@ -43,7 +60,7 @@ final class FormValidatorTest extends TestCase
             ]
         ];
 
-        $this->validator->validate($input, $files);
+        $this->validator->validateFiles($files);
         $errors = $this->validator->getErrors();
         $this->assertEmpty($errors);
         unlink($tmpFile);
@@ -67,6 +84,24 @@ final class FormValidatorTest extends TestCase
             'loan_amount' => '0'
         ];
 
+        $this->validator->validateInputs($input);
+        $errors = $this->validator->getErrors();
+        $this->assertNotEmpty($errors);
+        $this->assertCount(4, $errors);
+        unlink($tmpFile);
+    }
+
+    /**
+     * Test that valid input passes all validations.
+     */
+    public function testInvalidInputFilePasses(): void
+    {
+        $tmpFile = tempnam(sys_get_temp_dir(), 'tst');
+        file_put_contents($tmpFile, 'fake image content');
+        // simulate jpeg
+        rename($tmpFile, $tmpFile . '.jpg');
+        $tmpFile .= '.jpg';
+
         $files = [
             'file' => [
                 'name' => 'passport.jpg',
@@ -77,10 +112,9 @@ final class FormValidatorTest extends TestCase
             ]
         ];
 
-        $this->validator->validate($input, $files);
+        $this->validator->validateFiles($files);
         $errors = $this->validator->getErrors();
         $this->assertNotEmpty($errors);
-        $this->assertCount(5, $errors);
         unlink($tmpFile);
     }
 

@@ -63,10 +63,10 @@ final class SanitizeEmailTest extends TestCase
     {
         return [
             ['email', true],
-            ['EMAIL', true],
-            ['Email', true],
-            ['eMaIl', true],
-            ['username', false],
+            ['EMAIL', false],
+            ['Email', false],
+            ['eMaIl', false],
+            ['user_name', false],
             ['phone', false],
             ['address', false],
             ['name', false]
@@ -79,6 +79,6 @@ final class SanitizeEmailTest extends TestCase
      */
     function testSupports(string $input, bool $expected): void
     {
-        $this->assertSame($this->sanitizer->supports($input), $expected);
+        $this->assertSame(in_array($input, $this->sanitizer->supportedKeys()), $expected);
     }
 }

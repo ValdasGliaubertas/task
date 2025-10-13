@@ -11,10 +11,23 @@ final class FormSanitizerService implements SanitizerServiceInterface
 
     private array $errors = [];
 
+    /** @var array<string, SanitizerInterface> */
+    private array $sanitizer_map = [];
+
     public function __construct(
         /** @var SanitizerInterface[] */
         private readonly iterable $sanitizers
     ) {
+        $this->buildSanitizerMap();
+    }
+
+    private function buildSanitizerMap(): void
+    {
+        foreach ($this->sanitizers as $sanitizer) {
+            foreach ($sanitizer->supportedKeys() as $key) {
+                $this->sanitizer_map[$key] = $sanitizer;
+            }
+        }
     }
 
     public function getErrors(): array
@@ -22,28 +35,23 @@ final class FormSanitizerService implements SanitizerServiceInterface
         return $this->errors;
     }
 
-    public function sanitize(array $input, array $keys): array
+    public function sanitizeInputs(array $input, array $keys): array
     {
         $output = [];
-        if (empty($input)
-            || empty($keys)
-            || !in_array(key($input), $keys, true)) {
-            $this->errors[] = 'Invalid input or keys';
-            return $output;
-        }
 
         foreach ($keys as $key) {
-            $processed = false;
-            foreach ($this->sanitizers as $sanitizer) {
-                if (!$sanitizer->supports($key)) {
-                    continue;
-                }
-                $output[$key] = $sanitizer->sanitize($input[$key]);
-                $processed = true;
+            if (!isset($input[$key])) {
+                $this->errors[] = "Missing input for key: $key";
+                continue;
             }
-            if (!$processed) {
+
+            $sanitizer = $this->sanitizer_map[$key] ?? null;
+            if ($sanitizer === null) {
                 $this->errors[] = "No sanitizer found for key: $key";
+                continue;
             }
+
+            $output[$key] = $sanitizer->sanitize($input[$key]);
         }
 
         return $output;

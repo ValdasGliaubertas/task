@@ -7,10 +7,10 @@ namespace App\Service\Sanitizers;
 final class SanitizeString implements SanitizerInterface
 {
 
-    public function supports(string $key): bool
+    public function supportedKeys(): array
     {
         // Array of input names can be matched here if required
-        return strtolower($key) === 'full_name';
+        return ['full_name'];
     }
 
     public function sanitize(string $input): string

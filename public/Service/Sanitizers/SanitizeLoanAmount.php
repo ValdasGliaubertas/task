@@ -24,8 +24,8 @@ final class SanitizeLoanAmount implements SanitizerInterface
         return $value;
     }
 
-    public function supports(string $key): bool
+    public function supportedKeys(): array
     {
-        return strtolower($key) === 'loan_amount';
+        return ['loan_amount'];
     }
 }

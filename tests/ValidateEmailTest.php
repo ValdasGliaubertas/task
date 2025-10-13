@@ -77,9 +77,9 @@ final class ValidateEmailTest extends TestCase
     {
         return [
             ['email', true],
-            ['EMAIL', true],
-            ['Email', true],
-            ['eMaIl', true],
+            ['EMAIL', false],
+            ['Email', false],
+            ['eMaIl', false],
             ['username', false],
             ['phone', false],
             ['address', false],
@@ -93,6 +93,6 @@ final class ValidateEmailTest extends TestCase
      */
     function testSupports(string $input, bool $expected): void
     {
-        $this->assertSame($this->validator->supports($input), $expected);
+        $this->assertSame(in_array($input, $this->validator->supportedKeys()), $expected);
     }
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use App\Service\EnvConfigService;
 use PHPUnit\Framework\TestCase;
+
 final class EnvConfigServiceTest extends TestCase
 {
     private string $tempEnvFile;
@@ -21,15 +22,28 @@ DB_PASS='secret'
 EMPTY_KEY=
 INVALID_LINE
 ENV);
+
         // Reset static cache before each test
         $ref = new ReflectionClass(EnvConfigService::class);
+
+        // --- Handle static $cache property ---
         $cacheProp = $ref->getProperty('cache');
         $cacheProp->setAccessible(true);
-        $cacheProp->setValue(null);
+        // In PHP 8.3+, we must always pass two arguments
+        $cacheProp->setValue(null, null);
 
+        // --- Handle static or instance $envPath property ---
         $pathProp = $ref->getProperty('envPath');
         $pathProp->setAccessible(true);
-        $pathProp->setValue($this->tempEnvFile);
+
+        // If envPath is static, use null; otherwise, set it on an instance
+        if ($pathProp->isStatic()) {
+            $pathProp->setValue(null, $this->tempEnvFile);
+        } else {
+            // Create an instance only if needed
+            $instance = new EnvConfigService();
+            $pathProp->setValue($instance, $this->tempEnvFile);
+        }
     }
 
     protected function tearDown(): void
@@ -63,7 +77,13 @@ ENV);
         $ref = new ReflectionClass(EnvConfigService::class);
         $pathProp = $ref->getProperty('envPath');
         $pathProp->setAccessible(true);
-        $pathProp->setValue('/tmp/nonexistent_' . uniqid());
+
+        if ($pathProp->isStatic()) {
+            $pathProp->setValue(null, '/tmp/nonexistent_' . uniqid());
+        } else {
+            $instance = new EnvConfigService();
+            $pathProp->setValue($instance, '/tmp/nonexistent_' . uniqid());
+        }
 
         $service = new EnvConfigService();
         $service->get('ANY');

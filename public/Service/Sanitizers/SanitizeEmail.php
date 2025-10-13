@@ -7,9 +7,9 @@ namespace App\Service\Sanitizers;
 final class SanitizeEmail implements SanitizerInterface
 {
 
-    public function supports(string $key): bool
+    public function supportedKeys(): array
     {
-        return strtolower($key) === 'email';
+        return ['email'];
     }
 
     public function sanitize(string $input): string

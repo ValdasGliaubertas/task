@@ -24,9 +24,9 @@ final class ValidateFullName implements StringValidatorInterface
         return true;
     }
 
-    public function supports(string $key): bool
+    public function supportedKeys(): array
     {
-        return strtolower($key) === 'full_name';
+        return ['full_name'];
     }
 
     public function getErrors(): array

@@ -15,8 +15,10 @@ final class PGSQLUserRepository implements RepositoryInterface
 {
     private PDO $pdo;
 
-    public function __construct(private readonly ConfigServiceInterface $envConfig)
-    {
+    public function __construct(
+        private readonly PDOFactoryInterface $pdoFactory
+    ) {
+        $this->pdo = $pdoFactory->create();
     }
 
     /**
@@ -29,8 +31,6 @@ final class PGSQLUserRepository implements RepositoryInterface
     public function save(UserInterface $user): int
     {
         try {
-            $this->initPDOconnection();
-
             $this->pdo->beginTransaction();
 
             // Check if email already exists
@@ -88,43 +88,5 @@ final class PGSQLUserRepository implements RepositoryInterface
         }
 
         return $user_id;
-    }
-
-    /**
-     * Initialize the PDO connection.
-     *
-     * @throws Exception if the connection fails or configuration is missing.
-     */
-    private function initPDOconnection(): void
-    {
-        try {
-            $dbHost = $this->envConfig->get('DB_HOST');
-            $dbName = $this->envConfig->get('DB_NAME');
-            $dbUser = $this->envConfig->get('DB_USER');
-            $dbPass = $this->envConfig->get('DB_PASS');
-            $dbPort = $this->envConfig->get('DB_PORT');
-
-            if (empty($dbPort)
-                || !is_numeric($dbPort)
-                || empty($dbName)
-                || empty($dbUser)
-                || empty($dbPass)) {
-                throw new Exception("Database configuration is not set properly.");
-            }
-
-            // Build DSN (Data Source Name)
-            $dsn = "pgsql:host=$dbHost;port=$dbPort;dbname=$dbName";
-
-            // Create PDO instance
-            $pdo = new PDO($dsn, $dbUser, $dbPass, [
-                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,     // Throw exceptions
-                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC, // Return rows as associative arrays
-                PDO::ATTR_EMULATE_PREPARES => false,             // Use native prepared statements
-            ]);
-
-            $this->pdo = $pdo;
-        } catch (PDOException $e) {
-            throw new Exception("Database connection failed: " . $e->getMessage());
-        }
     }
 }

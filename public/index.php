@@ -6,6 +6,7 @@ use App\Controller\UserFormController;
 use App\Model\Document;
 use App\Model\Loan;
 use App\Model\User;
+use App\Repository\PGSQLPDOFactory;
 use App\Repository\PGSQLUserRepository;
 use App\Service\DataEncryptionService;
 use App\Service\EnvConfigService;
@@ -27,7 +28,8 @@ require_once "../vendor/autoload.php";
 
 // Initialize services and dependencies
 $env = new EnvConfigService();
-$repository = new PGSQLUserRepository($env);
+$pdo_factory = new PGSQLPDOFactory($env);
+$repository = new PGSQLUserRepository($pdo_factory);
 $user = new User();
 $document = new Document();
 $loan = new Loan();

@@ -28,8 +28,17 @@ final class ValidateLoanAmountTest extends TestCase
     }
 
     /**
+     * Test tnon numeric input.
+     */
+    public function testNonNumericLoanAmountFails(): void
+    {
+        $this->assertFalse($this->validator->validate('Abc'));
+        $errors = $this->validator->getErrors();
+        $this->assertContains('Loan amount must be a positive number.', $errors);
+    }
+
+    /**
      * Test that a positive loan amount passes validation.
-     * @todo: add more tests via provider for different valid and invalid inputs
      */
     public function testPositiveLoanAmountPass(): void
     {

@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+require_once "../vendor/autoload.php";
+
 use App\Controller\UserFormController;
 use App\Model\Document;
 use App\Model\Loan;
@@ -24,8 +26,6 @@ use App\Service\Validators\ValidateJPGFile;
 use App\Service\Validators\validateLoanAmount;
 use App\Service\Validators\validatePhoneNr;
 
-require_once "../vendor/autoload.php";
-
 // Initialize services and dependencies
 $env = new EnvConfigService();
 $pdo_factory = new PGSQLPDOFactory($env);
@@ -42,7 +42,7 @@ $form_sanitizer = new FormSanitizerService([
 ]);
 $dns_checker = new NativeDnsChecker();
 $form_validator = new FormValidatorService(
-    // Text inputs validators
+    // Text input validators
     [
         new ValidateEmail(new NativeDnsChecker()),
         new ValidateFullName(),

@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\maps\InputMap;
 use App\Service\Sanitizers\SanitizeLoanAmount;
 use App\Service\Sanitizers\SanitizerInterface;
 use PHPUnit\Framework\TestCase;

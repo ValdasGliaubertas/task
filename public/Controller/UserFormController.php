@@ -56,7 +56,7 @@ final readonly class UserFormController
 
         // If input do not have validation class matched, the error is thrown too, to not bypass validation
         $this->validator->validateInputs($data);
-        $this->validator->validateFiles($_FILES);
+        $this->validator->validateFiles($_FILES, [InputMap::FILE_NAME]);
         $errors = $this->validator->getErrors();
         if (!empty($errors)) {
             return new JsonResponse(['status' => 'error', 'errors' => $errors], 200);
@@ -79,6 +79,8 @@ final readonly class UserFormController
 
             $user_id = $this->repository->save($this->user);
         } catch (Throwable $e) {
+            // Would not expose $e->getMessage() in production, but for this demo it is useful
+            // in a production scenario, would log the error to a file or monitoring system
             return new JsonResponse([
                 'status' => 'error',
                 'message' => 'Failed to save user data: ' . $e->getMessage()

@@ -10,5 +10,6 @@ class InputMap
     public const EMAIL = 'email';
     public const PHONE = 'phone';
     public const LOAN_AMOUNT = 'loan_amount';
+    public const FILE_NAME = 'file';
 
 }

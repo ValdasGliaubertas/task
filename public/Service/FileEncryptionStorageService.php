@@ -18,7 +18,12 @@ final class FileEncryptionStorageService implements FileStorageServiceInterface
     }
 
     /**
+     * Encrypts and stores the uploaded file.
+     * @param array $file The uploaded file information from $_FILES
+     *
      * @throws Exception
+     *
+     * @return string The new filename of the stored file
      */
     public function store(array $file): string
     {

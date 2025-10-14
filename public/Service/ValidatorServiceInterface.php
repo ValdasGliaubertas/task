@@ -8,7 +8,7 @@ interface ValidatorServiceInterface
 {
     public function validateInputs(array $input): void;
 
-    public function validateFiles(array $files): void;
+    public function validateFiles(array $files, array $keys): void;
 
     public function getErrors(): array;
 

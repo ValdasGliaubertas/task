@@ -1,5 +1,8 @@
 <?php
 
+// This file generates a new encryption key for the file storage.
+// File is auto deleted after key generation.
+
 if (!is_dir('/var/www/secure_storage')) {
     mkdir('/var/www/secure_storage', 0700, true);
 }

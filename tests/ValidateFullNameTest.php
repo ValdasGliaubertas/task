@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\maps\InputMap;
 use App\Service\Validators\StringValidatorInterface;
 use App\Service\Validators\ValidateFullName;
 use PHPUnit\Framework\TestCase;

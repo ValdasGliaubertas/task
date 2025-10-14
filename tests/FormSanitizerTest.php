@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\maps\InputMap;
 use App\Service\FormSanitizerService;
 use App\Service\Sanitizers\SanitizeEmail;
 use App\Service\Sanitizers\SanitizeLoanAmount;

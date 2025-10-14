@@ -41,7 +41,7 @@ final class FormValidatorService implements ValidatorServiceInterface
                 continue;
             }
 
-            if ($validator->validate($input[$key])) {
+            if ($validator->validate($value)) {
                 continue;
             }
             $errors = $validator->getErrors();
@@ -52,12 +52,28 @@ final class FormValidatorService implements ValidatorServiceInterface
         }
     }
 
-    public function validateFiles(array $files): void
+    public function validateFiles(array $files, array $keys): void
     {
-        foreach ($files as $file) {
+        if (empty($keys)) {
+            $this->errors[] = "Expected name for file validation is missing.";
+            return;
+        }
+
+        if (empty($files)) {
+            $this->errors[] = "No files uploaded.";
+            return;
+        }
+
+        foreach ($keys as $file_name) {
+            if (!isset($files[$file_name])) {
+                $this->errors[] = "File input '$file_name' is missing.";
+                continue;
+            }
+            $file = $files[$file_name];
+
             $processed = false;
             foreach ($this->file_validators as $validator) {
-                // By file mime type or by file name
+                // By file name suffix we determine which validator to use
                 if (!$validator->supports($file['name'])) {
                     continue;
                 }
@@ -67,7 +83,7 @@ final class FormValidatorService implements ValidatorServiceInterface
                 $processed = true;
             }
             if (!$processed) {
-                $this->errors[] = "Input file '{$file['name']}' do not have validation definition.";
+                $this->errors[] = "Input file '{$file['name']}' do not have validation to be processed.";
             }
         }
     }

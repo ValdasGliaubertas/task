@@ -33,7 +33,7 @@ $repository = new PGSQLUserRepository($pdo_factory);
 $user = new User();
 $document = new Document();
 $loan = new Loan();
-// Using strategy pattern for sanitization and validation
+
 $form_sanitizer = new FormSanitizerService([
     new SanitizeLoanAmount(),
     new SanitizeEmail(),
@@ -42,12 +42,14 @@ $form_sanitizer = new FormSanitizerService([
 ]);
 $dns_checker = new NativeDnsChecker();
 $form_validator = new FormValidatorService(
+    // Text inputs validators
     [
         new ValidateEmail(new NativeDnsChecker()),
         new ValidateFullName(),
         new ValidatePhoneNr(),
         new validateLoanAmount(),
     ],
+    // Files validators
     [
         new ValidateJPGFile()
     ]

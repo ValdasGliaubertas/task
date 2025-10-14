@@ -37,8 +37,6 @@ final class EnvConfigService implements ConfigServiceInterface
             return;
         }
 
-        $envContent = null;
-
         if (file_exists(self::$envPath)) {
             $envContent = file_get_contents(self::$envPath);
         } else {

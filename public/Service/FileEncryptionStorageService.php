@@ -47,7 +47,7 @@ final class FileEncryptionStorageService implements FileStorageServiceInterface
 
         // Get file contents and encrypt
         $file_contents = file_get_contents($file['tmp_name']);
-        $file_stored = false;
+
         try {
             $encrypted = $this->encryptor->encrypt($file_contents);
             // Store file to the destination:

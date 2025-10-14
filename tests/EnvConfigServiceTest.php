@@ -28,13 +28,11 @@ ENV);
 
         // --- Handle static $cache property ---
         $cacheProp = $ref->getProperty('cache');
-        $cacheProp->setAccessible(true);
         // In PHP 8.3+, we must always pass two arguments
         $cacheProp->setValue(null, null);
 
         // --- Handle static or instance $envPath property ---
         $pathProp = $ref->getProperty('envPath');
-        $pathProp->setAccessible(true);
 
         // If envPath is static, use null; otherwise, set it on an instance
         if ($pathProp->isStatic()) {
@@ -76,7 +74,6 @@ ENV);
         // Point to non-existent file
         $ref = new ReflectionClass(EnvConfigService::class);
         $pathProp = $ref->getProperty('envPath');
-        $pathProp->setAccessible(true);
 
         if ($pathProp->isStatic()) {
             $pathProp->setValue(null, '/tmp/nonexistent_' . uniqid());

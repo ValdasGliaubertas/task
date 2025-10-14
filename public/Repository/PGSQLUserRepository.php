@@ -5,10 +5,8 @@ declare(strict_types=1);
 namespace App\Repository;
 
 use App\Model\UserInterface;
-use App\Service\ConfigServiceInterface;
 use Exception;
 use PDO;
-use PDOException;
 use Throwable;
 
 final class PGSQLUserRepository implements RepositoryInterface

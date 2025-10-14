@@ -29,9 +29,13 @@ services:
       - ../public:/var/www/html/public
       - ../uploads:/var/www/html/uploads
       - ../tests:/var/www/html/tests
+      - ../build:/var/www/html/build
       - ./apache/apache.conf:/etc/apache2/sites-available/000-default.conf
+      - ./php/conf.d/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini:ro
+      - ./php/conf.d/task.ini:/usr/local/etc/php/conf.d/task.ini
     environment:
       - APACHE_LOG_DIR=/var/log/apache2
+      - XDEBUG_MODE=debug,develop,coverage
     networks:
       - php-pgsql-network
 

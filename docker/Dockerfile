@@ -1,5 +1,7 @@
 FROM php:8.4-apache
 
+USER root
+
 # Install SQL extension
 RUN apt-get update && apt-get install -y libpq-dev \
 && docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql \
@@ -31,9 +33,15 @@ RUN chown -R www-data:www-data /var/www/html \
 WORKDIR /var/www/html
 
 # run composer install
-RUN apt-get update && apt-get install -y git unzip \
+RUN apt-get install -y git unzip \
 && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
 && cd /var/www/html && composer install
+
+RUN docker-php-ext-install sockets \
+&& docker-php-ext-enable sockets
+
+RUN yes '' | pecl install xdebug-3.4.6 \
+    && docker-php-ext-enable xdebug
 
 # Recommended: Enable Apache rewrite module
 RUN a2enmod rewrite

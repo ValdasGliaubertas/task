@@ -12,6 +12,7 @@
   "require": {
     "ext-sodium": "*",
     "ext-pdo": "*",
-    "ext-fileinfo": "*"
+    "ext-fileinfo": "*",
+    "ext-curl": "*"
   }
 }

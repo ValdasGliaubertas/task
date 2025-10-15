@@ -85,7 +85,6 @@ final class PGSQLPDOFactoryTest extends TestCase
             $pdo = $factory->create();
         } catch (Exception $e) {
             $this->markTestSkipped('Could not connect to the configured Postgres test DB: ' . $e->getMessage());
-            return;
         }
 
         $this->assertInstanceOf(PDO::class, $pdo);

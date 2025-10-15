@@ -16,6 +16,11 @@
         <include>
             <directory suffix=".php">public</directory>
         </include>
+        <exclude>
+            <!-- Exclude entrypoints and scripts not meant for testing -->
+            <file suffix=".php">public/index</file>
+            <file suffix=".php">public/View/view</file>
+        </exclude>
         <report>
             <html outputDirectory="build/coverage-html"/>
             <text outputFile="php://stdout"/>

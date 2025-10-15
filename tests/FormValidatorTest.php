@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-use App\maps\InputMap;
+use App\Maps\InputMap;
 use App\Service\DnsCheckerInterface;
 use App\Service\FormValidatorService;
 use App\Service\Validators\ValidateEmail;
 use App\Service\Validators\ValidateFullName;
 use App\Service\Validators\ValidateJPGFile;
-use App\Service\Validators\validateLoanAmount;
+use App\Service\Validators\ValidateLoanAmount;
 use App\Service\Validators\ValidatePhoneNr;
 use PHPUnit\Framework\TestCase;
 
@@ -177,7 +177,7 @@ final class FormValidatorTest extends TestCase
                 new ValidateEmail($mock),
                 new ValidateFullName(),
                 new ValidatePhoneNr(),
-                new validateLoanAmount()
+                new ValidateLoanAmount()
             ],
             []
         );
@@ -203,7 +203,7 @@ final class FormValidatorTest extends TestCase
                 new ValidateEmail($mock),
                 new ValidateFullName(),
                 new ValidatePhoneNr(),
-                new validateLoanAmount()
+                new ValidateLoanAmount()
             ],
             [
                 new ValidateJPGFile()

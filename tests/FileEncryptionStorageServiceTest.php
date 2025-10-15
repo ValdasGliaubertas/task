@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace Tests\Service;
 
-use App\Service\FileEncryptionStorageService;
 use App\Service\EncryptorServiceInterface;
+use App\Service\FileEncryptionStorageService;
+use App\Service\FileStorageServiceInterface;
 use Exception;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -93,6 +94,21 @@ final class FileEncryptionStorageServiceTest extends TestCase
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('File encryption failed. encryption failed');
 
+        $service->store(['name' => 'testfile.jpg', 'tmp_name' => $tmpFile]);
+    }
+
+    public function testThrowsExceptionOnStoreFailure(): void
+    {
+        $storage = $this->createMock(FileStorageServiceInterface::class);
+        $tmpFile = $this->createTempFile('data');
+        $service = new FileEncryptionStorageService($this->encryptor, $this->tempDir);
+
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Failed to write encrypted data to file.');
+
+        $storage
+            ->method('store')
+            ->willThrowException(new Exception('Failed to write encrypted data to file.'));
         $service->store(['name' => 'testfile.jpg', 'tmp_name' => $tmpFile]);
     }
 }

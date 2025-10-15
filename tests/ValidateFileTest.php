@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+namespace Tests\Service\Validators;
+
 use App\Service\Validators\FileValidatorInterface;
 use App\Service\Validators\ValidateJPGFile;
 use PHPUnit\Framework\TestCase;

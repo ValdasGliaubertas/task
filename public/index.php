@@ -23,7 +23,7 @@ use App\Service\Sanitizers\SanitizeString;
 use App\Service\Validators\ValidateEmail;
 use App\Service\Validators\ValidateFullName;
 use App\Service\Validators\ValidateJPGFile;
-use App\Service\Validators\validateLoanAmount;
+use App\Service\Validators\ValidateLoanAmount;
 use App\Service\Validators\validatePhoneNr;
 
 // PHP-DI package could be used for autowiring dependencies
@@ -51,7 +51,7 @@ $form_validator = new FormValidatorService(
         new ValidateEmail(new NativeDnsChecker()),
         new ValidateFullName(),
         new ValidatePhoneNr(),
-        new validateLoanAmount(),
+        new ValidateLoanAmount(),
     ],
     // File validators
     [

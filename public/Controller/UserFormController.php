@@ -14,7 +14,7 @@ use App\Repository\RepositoryInterface;
 use App\Service\FileStorageServiceInterface;
 use App\Service\SanitizerServiceInterface;
 use App\Service\ValidatorServiceInterface;
-use App\maps\InputMap;
+use App\Maps\InputMap;
 use Throwable;
 
 final readonly class UserFormController

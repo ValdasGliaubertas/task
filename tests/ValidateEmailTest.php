@@ -2,7 +2,9 @@
 
 declare(strict_types=1);
 
-use App\maps\InputMap;
+namespace Tests\Service\Validators;
+
+use App\Maps\InputMap;
 use App\Service\DnsCheckerInterface;
 use App\Service\Validators\StringValidatorInterface;
 use App\Service\Validators\ValidateEmail;

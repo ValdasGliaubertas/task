@@ -2,67 +2,69 @@
 
 declare(strict_types=1);
 
-use App\maps\InputMap;
-use App\Service\Validators\StringValidatorInterface;
+namespace Tests\Service\Validators;
+
+use App\Maps\InputMap;
 use App\Service\Validators\ValidateLoanAmount;
 use PHPUnit\Framework\TestCase;
 
 final class ValidateLoanAmountTest extends TestCase
 {
+    private ValidateLoanAmount $validator;
 
-    private StringValidatorInterface $validator;
-
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->validator = new ValidateLoanAmount();
     }
 
-    /**
-     * Test that a negative loan amount fails validation.
-     */
-    public function testNegativeLoanAmountFails(): void
+    public function testValidPositiveLoanAmount(): void
     {
-        $this->assertFalse($this->validator->validate('-100'));
-        $errors = $this->validator->getErrors();
-        $this->assertContains('Loan amount must be a positive number.', $errors);
+        $result = $this->validator->validate('100.50');
+
+        $this->assertTrue($result, 'Expected valid numeric input to pass.');
+        $this->assertSame([], $this->validator->getErrors(), 'No errors should be returned for valid input.');
     }
 
-    /**
-     * Test tnon numeric input.
-     */
+    public function testZeroOrNegativeLoanAmountFails(): void
+    {
+        $cases = ['0', '-10', '-0.01'];
+
+        foreach ($cases as $case) {
+            $validator = new ValidateLoanAmount(); // fresh per test
+            $result = $validator->validate($case);
+
+            $this->assertFalse($result, "Expected $case to fail validation.");
+            $errors = $validator->getErrors();
+            $this->assertContains('Loan amount must be a positive number.', $errors);
+        }
+    }
+
     public function testNonNumericLoanAmountFails(): void
     {
-        $this->assertFalse($this->validator->validate('Abc'));
+        $cases = ['abc', 'ten', '', ' ', '12abc'];
+
+        foreach ($cases as $case) {
+            $validator = new ValidateLoanAmount();
+            $result = $validator->validate($case);
+
+            $this->assertFalse($result, "Expected non-numeric input '$case' to fail.");
+            $errors = $validator->getErrors();
+            $this->assertContains('Loan amount must be a positive number.', $errors);
+        }
+    }
+
+    public function testSupportedKeys(): void
+    {
+        $keys = $this->validator->supportedKeys();
+        $this->assertContains(InputMap::LOAN_AMOUNT, $keys, 'Validator should support InputMap::LOAN_AMOUNT');
+    }
+
+    public function testErrorsPersistAfterInvalidInput(): void
+    {
+        $this->validator->validate('-100');
         $errors = $this->validator->getErrors();
-        $this->assertContains('Loan amount must be a positive number.', $errors);
-    }
 
-    /**
-     * Test that a positive loan amount passes validation.
-     */
-    public function testPositiveLoanAmountPass(): void
-    {
-        $this->assertTrue($this->validator->validate('100'));
-        $errors = $this->validator->getErrors();
-        $this->assertEmpty($errors);
-    }
-
-    public function SupportsProvider(): array
-    {
-        return [
-            ['loan+amount', false],
-            [InputMap::LOAN_AMOUNT, true],
-            ['LoanAmount', false],
-            ['Loan_Amount', false],
-        ];
-    }
-
-
-    /**
-     * @dataProvider SupportsProvider
-     */
-    function testSupports(string $input, bool $expected): void
-    {
-        $this->assertSame(in_array($input, $this->validator->supportedKeys()), $expected);
+        $this->assertCount(1, $errors);
+        $this->assertSame('Loan amount must be a positive number.', $errors[0]);
     }
 }

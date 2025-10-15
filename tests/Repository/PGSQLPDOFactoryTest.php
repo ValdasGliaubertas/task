@@ -6,6 +6,7 @@ namespace Tests\Repository;
 
 use App\Repository\PGSQLPDOFactory;
 use App\Service\ConfigServiceInterface;
+use App\Service\EnvConfigService;
 use Exception;
 use PDO;
 use PHPUnit\Framework\TestCase;
@@ -71,31 +72,14 @@ final class PGSQLPDOFactoryTest extends TestCase
      */
     public function testCreateReturnsPDOInstanceWhenPgsqlAvailable(): void
     {
-        $host = getenv('TEST_PG_HOST') ?: null;
-        $port = getenv('TEST_PG_PORT') ?: null;
-        $db   = getenv('TEST_PG_DB')   ?: null;
-        $user = getenv('TEST_PG_USER') ?: null;
-        $pass = getenv('TEST_PG_PASS') ?: null;
-
-        // Skip if not fully configured
-        if (!$host || !$port || !$db || !$user || $pass === false) {
-            $this->markTestSkipped('Postgres test environment not configured; set TEST_PG_* env vars to enable this test.');
-        }
-
         // Also skip if pgsql driver isn’t installed
         if (!in_array('pgsql', PDO::getAvailableDrivers(), true)) {
             $this->markTestSkipped('PDO pgsql driver not available.');
         }
 
-        $this->config->method('get')->willReturnMap([
-            ['DB_HOST', $host],
-            ['DB_NAME', $db],
-            ['DB_USER', $user],
-            ['DB_PASS', (string)$pass],
-            ['DB_PORT', $port],
-        ]);
+        $config = new EnvConfigService();
 
-        $factory = new PGSQLPDOFactory($this->config);
+        $factory = new PGSQLPDOFactory($config);
 
         try {
             $pdo = $factory->create();

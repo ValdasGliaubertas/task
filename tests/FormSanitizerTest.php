@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use App\maps\InputMap;
+use App\Maps\InputMap;
 use App\Service\FormSanitizerService;
 use App\Service\Sanitizers\SanitizeEmail;
 use App\Service\Sanitizers\SanitizeLoanAmount;
@@ -46,6 +46,12 @@ final class FormSanitizerTest extends TestCase
     public function testErrorsForSanitize(array $input = [], $allowed_keys = []): void
     {
         $this->sanitizer->sanitizeInputs($input, $allowed_keys);
+        $this->assertNotEmpty($this->sanitizer->getErrors());
+    }
+
+    public function testSanitizerServiceNoKeysProvidedForInput(): void
+    {
+        $this->sanitizer->sanitizeInputs(['non_defined_input'], []);
         $this->assertNotEmpty($this->sanitizer->getErrors());
     }
 

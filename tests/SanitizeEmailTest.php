@@ -2,7 +2,9 @@
 
 declare(strict_types=1);
 
-use App\maps\InputMap;
+namespace Tests\Service\Sanitizers;
+
+use App\Maps\InputMap;
 use App\Service\Sanitizers\SanitizeEmail;
 use App\Service\Sanitizers\SanitizerInterface;
 use PHPUnit\Framework\TestCase;

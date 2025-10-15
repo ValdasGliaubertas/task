@@ -21,9 +21,9 @@ final class FileEncryptionStorageService implements FileStorageServiceInterface
      * Encrypts and stores the uploaded file.
      * @param array $file The uploaded file information from $_FILES
      *
+     * @return string The new filename of the stored file
      * @throws Exception
      *
-     * @return string The new filename of the stored file
      */
     public function store(array $file): string
     {
@@ -33,15 +33,11 @@ final class FileEncryptionStorageService implements FileStorageServiceInterface
         }
 
         // Generate unique filename
-        try {
-            $new_file_name = sprintf(
-                '%s_%s.jpg',
-                preg_replace('/[^a-zA-Z0-9]/', '_', pathinfo($file['name'], PATHINFO_FILENAME)),
-                bin2hex(random_bytes(5))
-            );
-        } catch (Exception $e) {
-            throw new Exception($e->getMessage());
-        }
+        $new_file_name = sprintf(
+            '%s_%s.jpg',
+            preg_replace('/[^a-zA-Z0-9]/', '_', pathinfo($file['name'], PATHINFO_FILENAME)),
+            bin2hex(random_bytes(5))
+        );
 
         $destination = $this->upload_dir . DIRECTORY_SEPARATOR . $new_file_name;
 

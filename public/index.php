@@ -72,9 +72,3 @@ $user_form_controller = new UserFormController(
 );
 $response = $user_form_controller->handleSubmit();
 $response->send();
-
-
-
-
-
-

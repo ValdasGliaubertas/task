@@ -15,7 +15,7 @@ final class FormValidatorService implements ValidatorServiceInterface
     private array $validator_map = [];
 
     public function __construct(
-        /** @var StringValidatorInterface[] */
+        /** @var StringValidatorInterface[]|FileValidatorInterface[] */
         private readonly iterable $validators,
         /** @var FileValidatorInterface[] */
         private readonly iterable $file_validators = []

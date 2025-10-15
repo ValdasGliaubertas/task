@@ -26,10 +26,14 @@ use App\Service\Validators\ValidateJPGFile;
 use App\Service\Validators\validateLoanAmount;
 use App\Service\Validators\validatePhoneNr;
 
+// PHP-DI package could be used for autowiring dependencies
+// https://php-di.org/doc/autowiring.html
+// But for this showcase, I manually wire dependencies and don't use external code packages.
+
 // Initialize services and dependencies
 $env = new EnvConfigService();
 $pdo_factory = new PGSQLPDOFactory($env);
-$repository = new PGSQLUserRepository($pdo_factory);
+$user_repository = new PGSQLUserRepository($pdo_factory);
 $user = new User();
 $document = new Document();
 $loan = new Loan();
@@ -49,7 +53,7 @@ $form_validator = new FormValidatorService(
         new ValidatePhoneNr(),
         new validateLoanAmount(),
     ],
-    // Files validators
+    // File validators
     [
         new ValidateJPGFile()
     ]
@@ -64,9 +68,10 @@ $user_form_controller = new UserFormController(
     $loan,
     $user,
     $document,
-    $repository
+    $user_repository
 );
-$user_form_controller->handleSubmit();
+$response = $user_form_controller->handleSubmit();
+$response->send();
 
 
 

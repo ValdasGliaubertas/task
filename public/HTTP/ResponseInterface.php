@@ -13,4 +13,6 @@ interface ResponseInterface
 
     public function getBody(): string;
 
+    public function send(): void;
+
 }

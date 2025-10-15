@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\HTTP;
 
+use JetBrains\PhpStorm\NoReturn;
+
 class Response implements ResponseInterface
 {
     private int $statusCode;
@@ -24,12 +26,19 @@ class Response implements ResponseInterface
 
     public function getHeaders(): iterable
     {
-        Yield from $this->headers;
+        yield from $this->headers;
     }
 
     public function getBody(): string
     {
         return $this->body;
+    }
+
+    #[NoReturn]
+    public function send(): void
+    {
+        include __DIR__ . '/../View/view.php';
+        exit;
     }
 
 }

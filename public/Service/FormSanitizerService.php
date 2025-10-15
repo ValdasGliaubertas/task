@@ -39,6 +39,11 @@ final class FormSanitizerService implements SanitizerServiceInterface
     {
         $output = [];
 
+        if (empty($keys)) {
+            $this->errors[] = "No keys provided for sanitization.";
+            return $output;
+        }
+
         foreach ($keys as $key) {
             if (!isset($input[$key])) {
                 $this->errors[] = "Missing input for key: $key";

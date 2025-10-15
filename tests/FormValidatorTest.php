@@ -54,13 +54,14 @@ final class FormValidatorTest extends TestCase
             InputMap::FULL_NAME => 'Jo',
             InputMap::EMAIL => 'example@example@.com',
             InputMap::PHONE => '+370',
-            InputMap::LOAN_AMOUNT => '0'
+            InputMap::LOAN_AMOUNT => '0',
+            'unknown_key' => 'some value'
         ];
 
         $this->validator->validateInputs($input);
         $errors = $this->validator->getErrors();
         $this->assertNotEmpty($errors);
-        $this->assertCount(4, $errors);
+        $this->assertCount(5, $errors);
     }
 
     /**

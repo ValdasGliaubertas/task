@@ -12,7 +12,9 @@ if (file_exists('/var/www/secure_storage/encryption.key')) {
     exit(1);
 }
 
+// Some readonly persistent storage for the encryption key should be used in production.
+// Or like docker secrets...
 $key = sodium_crypto_secretbox_keygen();
 file_put_contents('/var/www/secure_storage/encryption.key', base64_encode($key));
-chmod('/var/www/secure_storage/encryption.key', 0600);
+chmod('/var/www/secure_storage/encryption.key', 0400);
 echo "Encryption key generated\n";

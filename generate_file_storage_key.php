@@ -14,5 +14,5 @@ if (file_exists('/var/www/secure_storage/encryption.key')) {
 
 $key = sodium_crypto_secretbox_keygen();
 file_put_contents('/var/www/secure_storage/encryption.key', base64_encode($key));
-chmod('/var/www/secure_storage/encryption.key', 0600);
+chmod('/var/www/secure_storage/encryption.key', 0400);
 echo "Encryption key generated\n";
